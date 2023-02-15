@@ -100,3 +100,76 @@ def StartMinVector(builder, numElems):
 def StatsEnd(builder): return builder.EndObject()
 def End(builder):
     return StatsEnd(builder)
+try:
+    from typing import List
+except:
+    pass
+
+class StatsT(object):
+
+    # StatsT
+    def __init__(self):
+        self.max = None  # type: List[float]
+        self.min = None  # type: List[float]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        stats = Stats()
+        stats.Init(buf, pos)
+        return cls.InitFromObj(stats)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, stats):
+        x = StatsT()
+        x._UnPack(stats)
+        return x
+
+    # StatsT
+    def _UnPack(self, stats):
+        if stats is None:
+            return
+        if not stats.MaxIsNone():
+            if np is None:
+                self.max = []
+                for i in range(stats.MaxLength()):
+                    self.max.append(stats.Max(i))
+            else:
+                self.max = stats.MaxAsNumpy()
+        if not stats.MinIsNone():
+            if np is None:
+                self.min = []
+                for i in range(stats.MinLength()):
+                    self.min.append(stats.Min(i))
+            else:
+                self.min = stats.MinAsNumpy()
+
+    # StatsT
+    def Pack(self, builder):
+        if self.max is not None:
+            if np is not None and type(self.max) is np.ndarray:
+                max = builder.CreateNumpyVector(self.max)
+            else:
+                StatsStartMaxVector(builder, len(self.max))
+                for i in reversed(range(len(self.max))):
+                    builder.PrependFloat32(self.max[i])
+                max = builder.EndVector()
+        if self.min is not None:
+            if np is not None and type(self.min) is np.ndarray:
+                min = builder.CreateNumpyVector(self.min)
+            else:
+                StatsStartMinVector(builder, len(self.min))
+                for i in reversed(range(len(self.min))):
+                    builder.PrependFloat32(self.min[i])
+                min = builder.EndVector()
+        StatsStart(builder)
+        if self.max is not None:
+            StatsAddMax(builder, max)
+        if self.min is not None:
+            StatsAddMin(builder, min)
+        stats = StatsEnd(builder)
+        return stats

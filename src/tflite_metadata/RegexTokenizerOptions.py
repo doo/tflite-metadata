@@ -75,3 +75,66 @@ def StartVocabFileVector(builder, numElems):
 def RegexTokenizerOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return RegexTokenizerOptionsEnd(builder)
+import tflite.AssociatedFile
+try:
+    from typing import List
+except:
+    pass
+
+class RegexTokenizerOptionsT(object):
+
+    # RegexTokenizerOptionsT
+    def __init__(self):
+        self.delimRegexPattern = None  # type: str
+        self.vocabFile = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        regexTokenizerOptions = RegexTokenizerOptions()
+        regexTokenizerOptions.Init(buf, pos)
+        return cls.InitFromObj(regexTokenizerOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, regexTokenizerOptions):
+        x = RegexTokenizerOptionsT()
+        x._UnPack(regexTokenizerOptions)
+        return x
+
+    # RegexTokenizerOptionsT
+    def _UnPack(self, regexTokenizerOptions):
+        if regexTokenizerOptions is None:
+            return
+        self.delimRegexPattern = regexTokenizerOptions.DelimRegexPattern()
+        if not regexTokenizerOptions.VocabFileIsNone():
+            self.vocabFile = []
+            for i in range(regexTokenizerOptions.VocabFileLength()):
+                if regexTokenizerOptions.VocabFile(i) is None:
+                    self.vocabFile.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(regexTokenizerOptions.VocabFile(i))
+                    self.vocabFile.append(associatedFile_)
+
+    # RegexTokenizerOptionsT
+    def Pack(self, builder):
+        if self.delimRegexPattern is not None:
+            delimRegexPattern = builder.CreateString(self.delimRegexPattern)
+        if self.vocabFile is not None:
+            vocabFilelist = []
+            for i in range(len(self.vocabFile)):
+                vocabFilelist.append(self.vocabFile[i].Pack(builder))
+            RegexTokenizerOptionsStartVocabFileVector(builder, len(self.vocabFile))
+            for i in reversed(range(len(self.vocabFile))):
+                builder.PrependUOffsetTRelative(vocabFilelist[i])
+            vocabFile = builder.EndVector()
+        RegexTokenizerOptionsStart(builder)
+        if self.delimRegexPattern is not None:
+            RegexTokenizerOptionsAddDelimRegexPattern(builder, delimRegexPattern)
+        if self.vocabFile is not None:
+            RegexTokenizerOptionsAddVocabFile(builder, vocabFile)
+        regexTokenizerOptions = RegexTokenizerOptionsEnd(builder)
+        return regexTokenizerOptions

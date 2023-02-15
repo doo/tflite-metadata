@@ -22,7 +22,7 @@ setup(
     packages=find_packages(where="src", exclude=["builder*"]),
     python_requires=">=3.10, <4",
     # only functional dependencies, no dev dependencies (like pytest)
-    install_requires=[],
+    install_requires=["flatbuffers"],
     extras_require={
         "dev": ["build"],
         "test": ["pytest"],

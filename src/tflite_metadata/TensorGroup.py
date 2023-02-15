@@ -70,3 +70,61 @@ def StartTensorNamesVector(builder, numElems):
 def TensorGroupEnd(builder): return builder.EndObject()
 def End(builder):
     return TensorGroupEnd(builder)
+try:
+    from typing import List
+except:
+    pass
+
+class TensorGroupT(object):
+
+    # TensorGroupT
+    def __init__(self):
+        self.name = None  # type: str
+        self.tensorNames = None  # type: List[str]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        tensorGroup = TensorGroup()
+        tensorGroup.Init(buf, pos)
+        return cls.InitFromObj(tensorGroup)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, tensorGroup):
+        x = TensorGroupT()
+        x._UnPack(tensorGroup)
+        return x
+
+    # TensorGroupT
+    def _UnPack(self, tensorGroup):
+        if tensorGroup is None:
+            return
+        self.name = tensorGroup.Name()
+        if not tensorGroup.TensorNamesIsNone():
+            self.tensorNames = []
+            for i in range(tensorGroup.TensorNamesLength()):
+                self.tensorNames.append(tensorGroup.TensorNames(i))
+
+    # TensorGroupT
+    def Pack(self, builder):
+        if self.name is not None:
+            name = builder.CreateString(self.name)
+        if self.tensorNames is not None:
+            tensorNameslist = []
+            for i in range(len(self.tensorNames)):
+                tensorNameslist.append(builder.CreateString(self.tensorNames[i]))
+            TensorGroupStartTensorNamesVector(builder, len(self.tensorNames))
+            for i in reversed(range(len(self.tensorNames))):
+                builder.PrependUOffsetTRelative(tensorNameslist[i])
+            tensorNames = builder.EndVector()
+        TensorGroupStart(builder)
+        if self.name is not None:
+            TensorGroupAddName(builder, name)
+        if self.tensorNames is not None:
+            TensorGroupAddTensorNames(builder, tensorNames)
+        tensorGroup = TensorGroupEnd(builder)
+        return tensorGroup

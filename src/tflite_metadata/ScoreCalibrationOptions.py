@@ -54,3 +54,42 @@ def AddDefaultScore(builder, defaultScore):
 def ScoreCalibrationOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ScoreCalibrationOptionsEnd(builder)
+
+class ScoreCalibrationOptionsT(object):
+
+    # ScoreCalibrationOptionsT
+    def __init__(self):
+        self.scoreTransformation = 0  # type: int
+        self.defaultScore = 0.0  # type: float
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        scoreCalibrationOptions = ScoreCalibrationOptions()
+        scoreCalibrationOptions.Init(buf, pos)
+        return cls.InitFromObj(scoreCalibrationOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, scoreCalibrationOptions):
+        x = ScoreCalibrationOptionsT()
+        x._UnPack(scoreCalibrationOptions)
+        return x
+
+    # ScoreCalibrationOptionsT
+    def _UnPack(self, scoreCalibrationOptions):
+        if scoreCalibrationOptions is None:
+            return
+        self.scoreTransformation = scoreCalibrationOptions.ScoreTransformation()
+        self.defaultScore = scoreCalibrationOptions.DefaultScore()
+
+    # ScoreCalibrationOptionsT
+    def Pack(self, builder):
+        ScoreCalibrationOptionsStart(builder)
+        ScoreCalibrationOptionsAddScoreTransformation(builder, self.scoreTransformation)
+        ScoreCalibrationOptionsAddDefaultScore(builder, self.defaultScore)
+        scoreCalibrationOptions = ScoreCalibrationOptionsEnd(builder)
+        return scoreCalibrationOptions

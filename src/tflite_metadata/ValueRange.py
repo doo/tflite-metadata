@@ -54,3 +54,42 @@ def AddMax(builder, max):
 def ValueRangeEnd(builder): return builder.EndObject()
 def End(builder):
     return ValueRangeEnd(builder)
+
+class ValueRangeT(object):
+
+    # ValueRangeT
+    def __init__(self):
+        self.min = 0  # type: int
+        self.max = 0  # type: int
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        valueRange = ValueRange()
+        valueRange.Init(buf, pos)
+        return cls.InitFromObj(valueRange)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, valueRange):
+        x = ValueRangeT()
+        x._UnPack(valueRange)
+        return x
+
+    # ValueRangeT
+    def _UnPack(self, valueRange):
+        if valueRange is None:
+            return
+        self.min = valueRange.Min()
+        self.max = valueRange.Max()
+
+    # ValueRangeT
+    def Pack(self, builder):
+        ValueRangeStart(builder)
+        ValueRangeAddMin(builder, self.min)
+        ValueRangeAddMax(builder, self.max)
+        valueRange = ValueRangeEnd(builder)
+        return valueRange

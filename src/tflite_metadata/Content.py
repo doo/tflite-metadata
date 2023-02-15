@@ -71,3 +71,62 @@ def AddRange(builder, range):
 def ContentEnd(builder): return builder.EndObject()
 def End(builder):
     return ContentEnd(builder)
+import tflite.AudioProperties
+import tflite.BoundingBoxProperties
+import tflite.ContentProperties
+import tflite.FeatureProperties
+import tflite.ImageProperties
+import tflite.ValueRange
+try:
+    from typing import Optional, Union
+except:
+    pass
+
+class ContentT(object):
+
+    # ContentT
+    def __init__(self):
+        self.contentPropertiesType = 0  # type: int
+        self.contentProperties = None  # type: Union[None, tflite.FeatureProperties.FeaturePropertiesT, tflite.ImageProperties.ImagePropertiesT, tflite.BoundingBoxProperties.BoundingBoxPropertiesT, tflite.AudioProperties.AudioPropertiesT]
+        self.range = None  # type: Optional[tflite.ValueRange.ValueRangeT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        content = Content()
+        content.Init(buf, pos)
+        return cls.InitFromObj(content)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, content):
+        x = ContentT()
+        x._UnPack(content)
+        return x
+
+    # ContentT
+    def _UnPack(self, content):
+        if content is None:
+            return
+        self.contentPropertiesType = content.ContentPropertiesType()
+        self.contentProperties = tflite.ContentProperties.ContentPropertiesCreator(self.contentPropertiesType, content.ContentProperties())
+        if content.Range() is not None:
+            self.range = tflite.ValueRange.ValueRangeT.InitFromObj(content.Range())
+
+    # ContentT
+    def Pack(self, builder):
+        if self.contentProperties is not None:
+            contentProperties = self.contentProperties.Pack(builder)
+        if self.range is not None:
+            range = self.range.Pack(builder)
+        ContentStart(builder)
+        ContentAddContentPropertiesType(builder, self.contentPropertiesType)
+        if self.contentProperties is not None:
+            ContentAddContentProperties(builder, contentProperties)
+        if self.range is not None:
+            ContentAddRange(builder, range)
+        content = ContentEnd(builder)
+        return content

@@ -100,3 +100,76 @@ def StartStdVector(builder, numElems):
 def NormalizationOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return NormalizationOptionsEnd(builder)
+try:
+    from typing import List
+except:
+    pass
+
+class NormalizationOptionsT(object):
+
+    # NormalizationOptionsT
+    def __init__(self):
+        self.mean = None  # type: List[float]
+        self.std = None  # type: List[float]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        normalizationOptions = NormalizationOptions()
+        normalizationOptions.Init(buf, pos)
+        return cls.InitFromObj(normalizationOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, normalizationOptions):
+        x = NormalizationOptionsT()
+        x._UnPack(normalizationOptions)
+        return x
+
+    # NormalizationOptionsT
+    def _UnPack(self, normalizationOptions):
+        if normalizationOptions is None:
+            return
+        if not normalizationOptions.MeanIsNone():
+            if np is None:
+                self.mean = []
+                for i in range(normalizationOptions.MeanLength()):
+                    self.mean.append(normalizationOptions.Mean(i))
+            else:
+                self.mean = normalizationOptions.MeanAsNumpy()
+        if not normalizationOptions.StdIsNone():
+            if np is None:
+                self.std = []
+                for i in range(normalizationOptions.StdLength()):
+                    self.std.append(normalizationOptions.Std(i))
+            else:
+                self.std = normalizationOptions.StdAsNumpy()
+
+    # NormalizationOptionsT
+    def Pack(self, builder):
+        if self.mean is not None:
+            if np is not None and type(self.mean) is np.ndarray:
+                mean = builder.CreateNumpyVector(self.mean)
+            else:
+                NormalizationOptionsStartMeanVector(builder, len(self.mean))
+                for i in reversed(range(len(self.mean))):
+                    builder.PrependFloat32(self.mean[i])
+                mean = builder.EndVector()
+        if self.std is not None:
+            if np is not None and type(self.std) is np.ndarray:
+                std = builder.CreateNumpyVector(self.std)
+            else:
+                NormalizationOptionsStartStdVector(builder, len(self.std))
+                for i in reversed(range(len(self.std))):
+                    builder.PrependFloat32(self.std[i])
+                std = builder.EndVector()
+        NormalizationOptionsStart(builder)
+        if self.mean is not None:
+            NormalizationOptionsAddMean(builder, mean)
+        if self.std is not None:
+            NormalizationOptionsAddStd(builder, std)
+        normalizationOptions = NormalizationOptionsEnd(builder)
+        return normalizationOptions

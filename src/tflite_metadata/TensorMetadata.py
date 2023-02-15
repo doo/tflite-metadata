@@ -170,3 +170,123 @@ def StartAssociatedFilesVector(builder, numElems):
 def TensorMetadataEnd(builder): return builder.EndObject()
 def End(builder):
     return TensorMetadataEnd(builder)
+import tflite.AssociatedFile
+import tflite.Content
+import tflite.ProcessUnit
+import tflite.Stats
+try:
+    from typing import List, Optional
+except:
+    pass
+
+class TensorMetadataT(object):
+
+    # TensorMetadataT
+    def __init__(self):
+        self.name = None  # type: str
+        self.description = None  # type: str
+        self.dimensionNames = None  # type: List[str]
+        self.content = None  # type: Optional[tflite.Content.ContentT]
+        self.processUnits = None  # type: List[tflite.ProcessUnit.ProcessUnitT]
+        self.stats = None  # type: Optional[tflite.Stats.StatsT]
+        self.associatedFiles = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        tensorMetadata = TensorMetadata()
+        tensorMetadata.Init(buf, pos)
+        return cls.InitFromObj(tensorMetadata)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, tensorMetadata):
+        x = TensorMetadataT()
+        x._UnPack(tensorMetadata)
+        return x
+
+    # TensorMetadataT
+    def _UnPack(self, tensorMetadata):
+        if tensorMetadata is None:
+            return
+        self.name = tensorMetadata.Name()
+        self.description = tensorMetadata.Description()
+        if not tensorMetadata.DimensionNamesIsNone():
+            self.dimensionNames = []
+            for i in range(tensorMetadata.DimensionNamesLength()):
+                self.dimensionNames.append(tensorMetadata.DimensionNames(i))
+        if tensorMetadata.Content() is not None:
+            self.content = tflite.Content.ContentT.InitFromObj(tensorMetadata.Content())
+        if not tensorMetadata.ProcessUnitsIsNone():
+            self.processUnits = []
+            for i in range(tensorMetadata.ProcessUnitsLength()):
+                if tensorMetadata.ProcessUnits(i) is None:
+                    self.processUnits.append(None)
+                else:
+                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(tensorMetadata.ProcessUnits(i))
+                    self.processUnits.append(processUnit_)
+        if tensorMetadata.Stats() is not None:
+            self.stats = tflite.Stats.StatsT.InitFromObj(tensorMetadata.Stats())
+        if not tensorMetadata.AssociatedFilesIsNone():
+            self.associatedFiles = []
+            for i in range(tensorMetadata.AssociatedFilesLength()):
+                if tensorMetadata.AssociatedFiles(i) is None:
+                    self.associatedFiles.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(tensorMetadata.AssociatedFiles(i))
+                    self.associatedFiles.append(associatedFile_)
+
+    # TensorMetadataT
+    def Pack(self, builder):
+        if self.name is not None:
+            name = builder.CreateString(self.name)
+        if self.description is not None:
+            description = builder.CreateString(self.description)
+        if self.dimensionNames is not None:
+            dimensionNameslist = []
+            for i in range(len(self.dimensionNames)):
+                dimensionNameslist.append(builder.CreateString(self.dimensionNames[i]))
+            TensorMetadataStartDimensionNamesVector(builder, len(self.dimensionNames))
+            for i in reversed(range(len(self.dimensionNames))):
+                builder.PrependUOffsetTRelative(dimensionNameslist[i])
+            dimensionNames = builder.EndVector()
+        if self.content is not None:
+            content = self.content.Pack(builder)
+        if self.processUnits is not None:
+            processUnitslist = []
+            for i in range(len(self.processUnits)):
+                processUnitslist.append(self.processUnits[i].Pack(builder))
+            TensorMetadataStartProcessUnitsVector(builder, len(self.processUnits))
+            for i in reversed(range(len(self.processUnits))):
+                builder.PrependUOffsetTRelative(processUnitslist[i])
+            processUnits = builder.EndVector()
+        if self.stats is not None:
+            stats = self.stats.Pack(builder)
+        if self.associatedFiles is not None:
+            associatedFileslist = []
+            for i in range(len(self.associatedFiles)):
+                associatedFileslist.append(self.associatedFiles[i].Pack(builder))
+            TensorMetadataStartAssociatedFilesVector(builder, len(self.associatedFiles))
+            for i in reversed(range(len(self.associatedFiles))):
+                builder.PrependUOffsetTRelative(associatedFileslist[i])
+            associatedFiles = builder.EndVector()
+        TensorMetadataStart(builder)
+        if self.name is not None:
+            TensorMetadataAddName(builder, name)
+        if self.description is not None:
+            TensorMetadataAddDescription(builder, description)
+        if self.dimensionNames is not None:
+            TensorMetadataAddDimensionNames(builder, dimensionNames)
+        if self.content is not None:
+            TensorMetadataAddContent(builder, content)
+        if self.processUnits is not None:
+            TensorMetadataAddProcessUnits(builder, processUnits)
+        if self.stats is not None:
+            TensorMetadataAddStats(builder, stats)
+        if self.associatedFiles is not None:
+            TensorMetadataAddAssociatedFiles(builder, associatedFiles)
+        tensorMetadata = TensorMetadataEnd(builder)
+        return tensorMetadata

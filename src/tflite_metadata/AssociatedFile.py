@@ -84,3 +84,63 @@ def AddVersion(builder, version):
 def AssociatedFileEnd(builder): return builder.EndObject()
 def End(builder):
     return AssociatedFileEnd(builder)
+
+class AssociatedFileT(object):
+
+    # AssociatedFileT
+    def __init__(self):
+        self.name = None  # type: str
+        self.description = None  # type: str
+        self.type = 0  # type: int
+        self.locale = None  # type: str
+        self.version = None  # type: str
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        associatedFile = AssociatedFile()
+        associatedFile.Init(buf, pos)
+        return cls.InitFromObj(associatedFile)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, associatedFile):
+        x = AssociatedFileT()
+        x._UnPack(associatedFile)
+        return x
+
+    # AssociatedFileT
+    def _UnPack(self, associatedFile):
+        if associatedFile is None:
+            return
+        self.name = associatedFile.Name()
+        self.description = associatedFile.Description()
+        self.type = associatedFile.Type()
+        self.locale = associatedFile.Locale()
+        self.version = associatedFile.Version()
+
+    # AssociatedFileT
+    def Pack(self, builder):
+        if self.name is not None:
+            name = builder.CreateString(self.name)
+        if self.description is not None:
+            description = builder.CreateString(self.description)
+        if self.locale is not None:
+            locale = builder.CreateString(self.locale)
+        if self.version is not None:
+            version = builder.CreateString(self.version)
+        AssociatedFileStart(builder)
+        if self.name is not None:
+            AssociatedFileAddName(builder, name)
+        if self.description is not None:
+            AssociatedFileAddDescription(builder, description)
+        AssociatedFileAddType(builder, self.type)
+        if self.locale is not None:
+            AssociatedFileAddLocale(builder, locale)
+        if self.version is not None:
+            AssociatedFileAddVersion(builder, version)
+        associatedFile = AssociatedFileEnd(builder)
+        return associatedFile

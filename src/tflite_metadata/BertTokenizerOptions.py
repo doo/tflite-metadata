@@ -65,3 +65,60 @@ def StartVocabFileVector(builder, numElems):
 def BertTokenizerOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return BertTokenizerOptionsEnd(builder)
+import tflite.AssociatedFile
+try:
+    from typing import List
+except:
+    pass
+
+class BertTokenizerOptionsT(object):
+
+    # BertTokenizerOptionsT
+    def __init__(self):
+        self.vocabFile = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        bertTokenizerOptions = BertTokenizerOptions()
+        bertTokenizerOptions.Init(buf, pos)
+        return cls.InitFromObj(bertTokenizerOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, bertTokenizerOptions):
+        x = BertTokenizerOptionsT()
+        x._UnPack(bertTokenizerOptions)
+        return x
+
+    # BertTokenizerOptionsT
+    def _UnPack(self, bertTokenizerOptions):
+        if bertTokenizerOptions is None:
+            return
+        if not bertTokenizerOptions.VocabFileIsNone():
+            self.vocabFile = []
+            for i in range(bertTokenizerOptions.VocabFileLength()):
+                if bertTokenizerOptions.VocabFile(i) is None:
+                    self.vocabFile.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(bertTokenizerOptions.VocabFile(i))
+                    self.vocabFile.append(associatedFile_)
+
+    # BertTokenizerOptionsT
+    def Pack(self, builder):
+        if self.vocabFile is not None:
+            vocabFilelist = []
+            for i in range(len(self.vocabFile)):
+                vocabFilelist.append(self.vocabFile[i].Pack(builder))
+            BertTokenizerOptionsStartVocabFileVector(builder, len(self.vocabFile))
+            for i in reversed(range(len(self.vocabFile))):
+                builder.PrependUOffsetTRelative(vocabFilelist[i])
+            vocabFile = builder.EndVector()
+        BertTokenizerOptionsStart(builder)
+        if self.vocabFile is not None:
+            BertTokenizerOptionsAddVocabFile(builder, vocabFile)
+        bertTokenizerOptions = BertTokenizerOptionsEnd(builder)
+        return bertTokenizerOptions

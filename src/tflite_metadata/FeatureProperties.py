@@ -34,3 +34,37 @@ def Start(builder):
 def FeaturePropertiesEnd(builder): return builder.EndObject()
 def End(builder):
     return FeaturePropertiesEnd(builder)
+
+class FeaturePropertiesT(object):
+
+    # FeaturePropertiesT
+    def __init__(self):
+        pass
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        featureProperties = FeatureProperties()
+        featureProperties.Init(buf, pos)
+        return cls.InitFromObj(featureProperties)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, featureProperties):
+        x = FeaturePropertiesT()
+        x._UnPack(featureProperties)
+        return x
+
+    # FeaturePropertiesT
+    def _UnPack(self, featureProperties):
+        if featureProperties is None:
+            return
+
+    # FeaturePropertiesT
+    def Pack(self, builder):
+        FeaturePropertiesStart(builder)
+        featureProperties = FeaturePropertiesEnd(builder)
+        return featureProperties

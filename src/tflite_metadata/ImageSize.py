@@ -54,3 +54,42 @@ def AddHeight(builder, height):
 def ImageSizeEnd(builder): return builder.EndObject()
 def End(builder):
     return ImageSizeEnd(builder)
+
+class ImageSizeT(object):
+
+    # ImageSizeT
+    def __init__(self):
+        self.width = 0  # type: int
+        self.height = 0  # type: int
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        imageSize = ImageSize()
+        imageSize.Init(buf, pos)
+        return cls.InitFromObj(imageSize)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, imageSize):
+        x = ImageSizeT()
+        x._UnPack(imageSize)
+        return x
+
+    # ImageSizeT
+    def _UnPack(self, imageSize):
+        if imageSize is None:
+            return
+        self.width = imageSize.Width()
+        self.height = imageSize.Height()
+
+    # ImageSizeT
+    def Pack(self, builder):
+        ImageSizeStart(builder)
+        ImageSizeAddWidth(builder, self.width)
+        ImageSizeAddHeight(builder, self.height)
+        imageSize = ImageSizeEnd(builder)
+        return imageSize

@@ -54,3 +54,42 @@ def AddChannels(builder, channels):
 def AudioPropertiesEnd(builder): return builder.EndObject()
 def End(builder):
     return AudioPropertiesEnd(builder)
+
+class AudioPropertiesT(object):
+
+    # AudioPropertiesT
+    def __init__(self):
+        self.sampleRate = 0  # type: int
+        self.channels = 0  # type: int
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        audioProperties = AudioProperties()
+        audioProperties.Init(buf, pos)
+        return cls.InitFromObj(audioProperties)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, audioProperties):
+        x = AudioPropertiesT()
+        x._UnPack(audioProperties)
+        return x
+
+    # AudioPropertiesT
+    def _UnPack(self, audioProperties):
+        if audioProperties is None:
+            return
+        self.sampleRate = audioProperties.SampleRate()
+        self.channels = audioProperties.Channels()
+
+    # AudioPropertiesT
+    def Pack(self, builder):
+        AudioPropertiesStart(builder)
+        AudioPropertiesAddSampleRate(builder, self.sampleRate)
+        AudioPropertiesAddChannels(builder, self.channels)
+        audioProperties = AudioPropertiesEnd(builder)
+        return audioProperties

@@ -58,3 +58,51 @@ def AddDefaultSize(builder, defaultSize):
 def ImagePropertiesEnd(builder): return builder.EndObject()
 def End(builder):
     return ImagePropertiesEnd(builder)
+import tflite.ImageSize
+try:
+    from typing import Optional
+except:
+    pass
+
+class ImagePropertiesT(object):
+
+    # ImagePropertiesT
+    def __init__(self):
+        self.colorSpace = 0  # type: int
+        self.defaultSize = None  # type: Optional[tflite.ImageSize.ImageSizeT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        imageProperties = ImageProperties()
+        imageProperties.Init(buf, pos)
+        return cls.InitFromObj(imageProperties)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, imageProperties):
+        x = ImagePropertiesT()
+        x._UnPack(imageProperties)
+        return x
+
+    # ImagePropertiesT
+    def _UnPack(self, imageProperties):
+        if imageProperties is None:
+            return
+        self.colorSpace = imageProperties.ColorSpace()
+        if imageProperties.DefaultSize() is not None:
+            self.defaultSize = tflite.ImageSize.ImageSizeT.InitFromObj(imageProperties.DefaultSize())
+
+    # ImagePropertiesT
+    def Pack(self, builder):
+        if self.defaultSize is not None:
+            defaultSize = self.defaultSize.Pack(builder)
+        ImagePropertiesStart(builder)
+        ImagePropertiesAddColorSpace(builder, self.colorSpace)
+        if self.defaultSize is not None:
+            ImagePropertiesAddDefaultSize(builder, defaultSize)
+        imageProperties = ImagePropertiesEnd(builder)
+        return imageProperties

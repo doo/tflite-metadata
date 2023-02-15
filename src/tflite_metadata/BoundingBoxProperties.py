@@ -87,3 +87,64 @@ def AddCoordinateType(builder, coordinateType):
 def BoundingBoxPropertiesEnd(builder): return builder.EndObject()
 def End(builder):
     return BoundingBoxPropertiesEnd(builder)
+try:
+    from typing import List
+except:
+    pass
+
+class BoundingBoxPropertiesT(object):
+
+    # BoundingBoxPropertiesT
+    def __init__(self):
+        self.index = None  # type: List[int]
+        self.type = 0  # type: int
+        self.coordinateType = 0  # type: int
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        boundingBoxProperties = BoundingBoxProperties()
+        boundingBoxProperties.Init(buf, pos)
+        return cls.InitFromObj(boundingBoxProperties)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, boundingBoxProperties):
+        x = BoundingBoxPropertiesT()
+        x._UnPack(boundingBoxProperties)
+        return x
+
+    # BoundingBoxPropertiesT
+    def _UnPack(self, boundingBoxProperties):
+        if boundingBoxProperties is None:
+            return
+        if not boundingBoxProperties.IndexIsNone():
+            if np is None:
+                self.index = []
+                for i in range(boundingBoxProperties.IndexLength()):
+                    self.index.append(boundingBoxProperties.Index(i))
+            else:
+                self.index = boundingBoxProperties.IndexAsNumpy()
+        self.type = boundingBoxProperties.Type()
+        self.coordinateType = boundingBoxProperties.CoordinateType()
+
+    # BoundingBoxPropertiesT
+    def Pack(self, builder):
+        if self.index is not None:
+            if np is not None and type(self.index) is np.ndarray:
+                index = builder.CreateNumpyVector(self.index)
+            else:
+                BoundingBoxPropertiesStartIndexVector(builder, len(self.index))
+                for i in reversed(range(len(self.index))):
+                    builder.PrependUint32(self.index[i])
+                index = builder.EndVector()
+        BoundingBoxPropertiesStart(builder)
+        if self.index is not None:
+            BoundingBoxPropertiesAddIndex(builder, index)
+        BoundingBoxPropertiesAddType(builder, self.type)
+        BoundingBoxPropertiesAddCoordinateType(builder, self.coordinateType)
+        boundingBoxProperties = BoundingBoxPropertiesEnd(builder)
+        return boundingBoxProperties

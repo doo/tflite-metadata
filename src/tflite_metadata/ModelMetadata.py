@@ -156,3 +156,116 @@ def AddMinParserVersion(builder, minParserVersion):
 def ModelMetadataEnd(builder): return builder.EndObject()
 def End(builder):
     return ModelMetadataEnd(builder)
+import tflite.AssociatedFile
+import tflite.SubGraphMetadata
+try:
+    from typing import List
+except:
+    pass
+
+class ModelMetadataT(object):
+
+    # ModelMetadataT
+    def __init__(self):
+        self.name = None  # type: str
+        self.description = None  # type: str
+        self.version = None  # type: str
+        self.subgraphMetadata = None  # type: List[tflite.SubGraphMetadata.SubGraphMetadataT]
+        self.author = None  # type: str
+        self.license = None  # type: str
+        self.associatedFiles = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+        self.minParserVersion = None  # type: str
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        modelMetadata = ModelMetadata()
+        modelMetadata.Init(buf, pos)
+        return cls.InitFromObj(modelMetadata)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, modelMetadata):
+        x = ModelMetadataT()
+        x._UnPack(modelMetadata)
+        return x
+
+    # ModelMetadataT
+    def _UnPack(self, modelMetadata):
+        if modelMetadata is None:
+            return
+        self.name = modelMetadata.Name()
+        self.description = modelMetadata.Description()
+        self.version = modelMetadata.Version()
+        if not modelMetadata.SubgraphMetadataIsNone():
+            self.subgraphMetadata = []
+            for i in range(modelMetadata.SubgraphMetadataLength()):
+                if modelMetadata.SubgraphMetadata(i) is None:
+                    self.subgraphMetadata.append(None)
+                else:
+                    subGraphMetadata_ = tflite.SubGraphMetadata.SubGraphMetadataT.InitFromObj(modelMetadata.SubgraphMetadata(i))
+                    self.subgraphMetadata.append(subGraphMetadata_)
+        self.author = modelMetadata.Author()
+        self.license = modelMetadata.License()
+        if not modelMetadata.AssociatedFilesIsNone():
+            self.associatedFiles = []
+            for i in range(modelMetadata.AssociatedFilesLength()):
+                if modelMetadata.AssociatedFiles(i) is None:
+                    self.associatedFiles.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(modelMetadata.AssociatedFiles(i))
+                    self.associatedFiles.append(associatedFile_)
+        self.minParserVersion = modelMetadata.MinParserVersion()
+
+    # ModelMetadataT
+    def Pack(self, builder):
+        if self.name is not None:
+            name = builder.CreateString(self.name)
+        if self.description is not None:
+            description = builder.CreateString(self.description)
+        if self.version is not None:
+            version = builder.CreateString(self.version)
+        if self.subgraphMetadata is not None:
+            subgraphMetadatalist = []
+            for i in range(len(self.subgraphMetadata)):
+                subgraphMetadatalist.append(self.subgraphMetadata[i].Pack(builder))
+            ModelMetadataStartSubgraphMetadataVector(builder, len(self.subgraphMetadata))
+            for i in reversed(range(len(self.subgraphMetadata))):
+                builder.PrependUOffsetTRelative(subgraphMetadatalist[i])
+            subgraphMetadata = builder.EndVector()
+        if self.author is not None:
+            author = builder.CreateString(self.author)
+        if self.license is not None:
+            license = builder.CreateString(self.license)
+        if self.associatedFiles is not None:
+            associatedFileslist = []
+            for i in range(len(self.associatedFiles)):
+                associatedFileslist.append(self.associatedFiles[i].Pack(builder))
+            ModelMetadataStartAssociatedFilesVector(builder, len(self.associatedFiles))
+            for i in reversed(range(len(self.associatedFiles))):
+                builder.PrependUOffsetTRelative(associatedFileslist[i])
+            associatedFiles = builder.EndVector()
+        if self.minParserVersion is not None:
+            minParserVersion = builder.CreateString(self.minParserVersion)
+        ModelMetadataStart(builder)
+        if self.name is not None:
+            ModelMetadataAddName(builder, name)
+        if self.description is not None:
+            ModelMetadataAddDescription(builder, description)
+        if self.version is not None:
+            ModelMetadataAddVersion(builder, version)
+        if self.subgraphMetadata is not None:
+            ModelMetadataAddSubgraphMetadata(builder, subgraphMetadata)
+        if self.author is not None:
+            ModelMetadataAddAuthor(builder, author)
+        if self.license is not None:
+            ModelMetadataAddLicense(builder, license)
+        if self.associatedFiles is not None:
+            ModelMetadataAddAssociatedFiles(builder, associatedFiles)
+        if self.minParserVersion is not None:
+            ModelMetadataAddMinParserVersion(builder, minParserVersion)
+        modelMetadata = ModelMetadataEnd(builder)
+        return modelMetadata

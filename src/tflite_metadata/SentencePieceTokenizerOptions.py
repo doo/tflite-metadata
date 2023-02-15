@@ -96,3 +96,79 @@ def StartVocabFileVector(builder, numElems):
 def SentencePieceTokenizerOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return SentencePieceTokenizerOptionsEnd(builder)
+import tflite.AssociatedFile
+try:
+    from typing import List
+except:
+    pass
+
+class SentencePieceTokenizerOptionsT(object):
+
+    # SentencePieceTokenizerOptionsT
+    def __init__(self):
+        self.sentencePieceModel = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+        self.vocabFile = None  # type: List[tflite.AssociatedFile.AssociatedFileT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        sentencePieceTokenizerOptions = SentencePieceTokenizerOptions()
+        sentencePieceTokenizerOptions.Init(buf, pos)
+        return cls.InitFromObj(sentencePieceTokenizerOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, sentencePieceTokenizerOptions):
+        x = SentencePieceTokenizerOptionsT()
+        x._UnPack(sentencePieceTokenizerOptions)
+        return x
+
+    # SentencePieceTokenizerOptionsT
+    def _UnPack(self, sentencePieceTokenizerOptions):
+        if sentencePieceTokenizerOptions is None:
+            return
+        if not sentencePieceTokenizerOptions.SentencePieceModelIsNone():
+            self.sentencePieceModel = []
+            for i in range(sentencePieceTokenizerOptions.SentencePieceModelLength()):
+                if sentencePieceTokenizerOptions.SentencePieceModel(i) is None:
+                    self.sentencePieceModel.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(sentencePieceTokenizerOptions.SentencePieceModel(i))
+                    self.sentencePieceModel.append(associatedFile_)
+        if not sentencePieceTokenizerOptions.VocabFileIsNone():
+            self.vocabFile = []
+            for i in range(sentencePieceTokenizerOptions.VocabFileLength()):
+                if sentencePieceTokenizerOptions.VocabFile(i) is None:
+                    self.vocabFile.append(None)
+                else:
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(sentencePieceTokenizerOptions.VocabFile(i))
+                    self.vocabFile.append(associatedFile_)
+
+    # SentencePieceTokenizerOptionsT
+    def Pack(self, builder):
+        if self.sentencePieceModel is not None:
+            sentencePieceModellist = []
+            for i in range(len(self.sentencePieceModel)):
+                sentencePieceModellist.append(self.sentencePieceModel[i].Pack(builder))
+            SentencePieceTokenizerOptionsStartSentencePieceModelVector(builder, len(self.sentencePieceModel))
+            for i in reversed(range(len(self.sentencePieceModel))):
+                builder.PrependUOffsetTRelative(sentencePieceModellist[i])
+            sentencePieceModel = builder.EndVector()
+        if self.vocabFile is not None:
+            vocabFilelist = []
+            for i in range(len(self.vocabFile)):
+                vocabFilelist.append(self.vocabFile[i].Pack(builder))
+            SentencePieceTokenizerOptionsStartVocabFileVector(builder, len(self.vocabFile))
+            for i in reversed(range(len(self.vocabFile))):
+                builder.PrependUOffsetTRelative(vocabFilelist[i])
+            vocabFile = builder.EndVector()
+        SentencePieceTokenizerOptionsStart(builder)
+        if self.sentencePieceModel is not None:
+            SentencePieceTokenizerOptionsAddSentencePieceModel(builder, sentencePieceModel)
+        if self.vocabFile is not None:
+            SentencePieceTokenizerOptionsAddVocabFile(builder, vocabFile)
+        sentencePieceTokenizerOptions = SentencePieceTokenizerOptionsEnd(builder)
+        return sentencePieceTokenizerOptions

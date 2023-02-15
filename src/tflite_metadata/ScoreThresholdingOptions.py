@@ -44,3 +44,39 @@ def AddGlobalScoreThreshold(builder, globalScoreThreshold):
 def ScoreThresholdingOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ScoreThresholdingOptionsEnd(builder)
+
+class ScoreThresholdingOptionsT(object):
+
+    # ScoreThresholdingOptionsT
+    def __init__(self):
+        self.globalScoreThreshold = 0.0  # type: float
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        scoreThresholdingOptions = ScoreThresholdingOptions()
+        scoreThresholdingOptions.Init(buf, pos)
+        return cls.InitFromObj(scoreThresholdingOptions)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, scoreThresholdingOptions):
+        x = ScoreThresholdingOptionsT()
+        x._UnPack(scoreThresholdingOptions)
+        return x
+
+    # ScoreThresholdingOptionsT
+    def _UnPack(self, scoreThresholdingOptions):
+        if scoreThresholdingOptions is None:
+            return
+        self.globalScoreThreshold = scoreThresholdingOptions.GlobalScoreThreshold()
+
+    # ScoreThresholdingOptionsT
+    def Pack(self, builder):
+        ScoreThresholdingOptionsStart(builder)
+        ScoreThresholdingOptionsAddGlobalScoreThreshold(builder, self.globalScoreThreshold)
+        scoreThresholdingOptions = ScoreThresholdingOptionsEnd(builder)
+        return scoreThresholdingOptions

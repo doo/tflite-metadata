@@ -57,3 +57,56 @@ def AddOptions(builder, options):
 def ProcessUnitEnd(builder): return builder.EndObject()
 def End(builder):
     return ProcessUnitEnd(builder)
+import tflite.BertTokenizerOptions
+import tflite.NormalizationOptions
+import tflite.ProcessUnitOptions
+import tflite.RegexTokenizerOptions
+import tflite.ScoreCalibrationOptions
+import tflite.ScoreThresholdingOptions
+import tflite.SentencePieceTokenizerOptions
+try:
+    from typing import Union
+except:
+    pass
+
+class ProcessUnitT(object):
+
+    # ProcessUnitT
+    def __init__(self):
+        self.optionsType = 0  # type: int
+        self.options = None  # type: Union[None, tflite.NormalizationOptions.NormalizationOptionsT, tflite.ScoreCalibrationOptions.ScoreCalibrationOptionsT, tflite.ScoreThresholdingOptions.ScoreThresholdingOptionsT, tflite.BertTokenizerOptions.BertTokenizerOptionsT, tflite.SentencePieceTokenizerOptions.SentencePieceTokenizerOptionsT, tflite.RegexTokenizerOptions.RegexTokenizerOptionsT]
+
+    @classmethod
+    def InitFromBuf(cls, buf, pos):
+        processUnit = ProcessUnit()
+        processUnit.Init(buf, pos)
+        return cls.InitFromObj(processUnit)
+
+    @classmethod
+    def InitFromPackedBuf(cls, buf, pos=0):
+        n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
+        return cls.InitFromBuf(buf, pos+n)
+
+    @classmethod
+    def InitFromObj(cls, processUnit):
+        x = ProcessUnitT()
+        x._UnPack(processUnit)
+        return x
+
+    # ProcessUnitT
+    def _UnPack(self, processUnit):
+        if processUnit is None:
+            return
+        self.optionsType = processUnit.OptionsType()
+        self.options = tflite.ProcessUnitOptions.ProcessUnitOptionsCreator(self.optionsType, processUnit.Options())
+
+    # ProcessUnitT
+    def Pack(self, builder):
+        if self.options is not None:
+            options = self.options.Pack(builder)
+        ProcessUnitStart(builder)
+        ProcessUnitAddOptionsType(builder, self.optionsType)
+        if self.options is not None:
+            ProcessUnitAddOptions(builder, options)
+        processUnit = ProcessUnitEnd(builder)
+        return processUnit
