@@ -1,0 +1,6 @@
+-e .  # local package
+-e .[dev]  # dev dependencies
+-e .[test]  # test dependencies
+-e .[build]  # build dependencies
+
+# looking for other requirements or want to add new ones? they moved to setup.py
