@@ -20,12 +20,14 @@ setup(
     long_description_content_type="text/markdown",
     package_dir={"": "src"},
     packages=find_packages(where="src", exclude=["builder*"]),
+    include_package_data=True,
+    package_data={"tflite_metadata.schema": ["*.pbs"]},
     python_requires=">=3.10, <4",
     # only functional dependencies, no dev dependencies (like pytest)
     install_requires=["flatbuffers"],
     extras_require={
         "dev": ["build"],
         "test": ["pytest"],
-        "build": ["click", "requests"],
+        "build": ["click", "gitpython", "requests"],
     },
 )
