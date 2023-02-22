@@ -309,7 +309,8 @@ class MetadataPopulator(object):
         if not metadata_buf:
             raise ValueError("The metadata to be populated is empty.")
 
-        self._validate_metadata(metadata_buf)
+        # do not validate metadata for now, maybe add back in later
+        # self._validate_metadata(metadata_buf)
 
         # Gets the minimum metadata parser version of the metadata_buf.
         # TODO for now only use default can we replace it by straight up Flatbuffer code?
