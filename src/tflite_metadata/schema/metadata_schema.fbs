@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace tflite;
+
 // TFLite metadata contains both human readable and machine readable information
 // about what the model does and how to use the model. It can be used as a
 // README file, which elaborates the details of the model, each input/ouput
