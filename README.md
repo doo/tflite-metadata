@@ -3,7 +3,6 @@
 This repository provides the compiled python files
 from the tflite support repository.
 This makes them available for all current python versions on all platforms.
-However, having [`flatc`](https://google.github.io/flatbuffers/flatbuffers_guide_using_schema_compiler.html) available on the path is a prerequisite.
 
 ## Setup
 

@@ -814,24 +814,19 @@ def convert_to_json(metadata_buffer):
     Raises:
       ValueError: error occured when parsing the metadata schema file.
     """
-    with tempfile.TemporaryDirectory() as temp_dir:
-        buffer_file = os.path.join(temp_dir, "buffer.bin")
-        with open(buffer_file, "wb") as f:
-            f.write(metadata_buffer)
-        subprocess.run(
-            [
-                "flatc",
-                "--json",
-                "--strict-json",
-                _FLATC_TFLITE_METADATA_SCHEMA_FILE,
-                "--",
-                buffer_file,
-            ],
-            cwd=temp_dir,
-            check=True,
-        )
-        result = json.load(open(os.path.join(temp_dir, "buffer.json")))
-    return json.dumps(result)
+    model_metadata = ModelMetadataT.InitFromObj(
+        ModelMetadata.GetRootAsModelMetadata(metadata_buffer, 0)
+    )
+    return json.dumps(model_metadata.__dict__, cls=JsonAwareBytesEncoder)
+
+
+class JsonAwareBytesEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, bytes):
+            string = obj.decode("UTF-8")
+            return string
+        super_default = getattr(super(), "default", None)
+        return super_default(obj)
 
 
 def _assert_file_exist(filename):
