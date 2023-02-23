@@ -1,4 +1,3 @@
-import logging
 import shutil
 import subprocess
 from logging import info
@@ -68,25 +67,28 @@ def update_compiled_libs():
     info("Done")
 
 
-def update(**kwargs):
-    update_flatbuffer_schemata(**kwargs)
+def compile_schemata():
     if are_libs_outdated():
         update_compiled_libs()
     else:
         info("No upstream changes")
 
 
-@click.command(
-    help="Updates the python files for the metadata schema. "
-    "Assumes `flatc` to be available on path. "
-    "See https://google.github.io/flatbuffers/"
-)
+@click.group()
+def cli():
+    pass
+
+
+@cli.command("update", help="Updates the python files for the metadata schema.")
 @click.option("--tflite_support_revision", "-tfls", type=str)
 @click.option("--tensorflow_revision", "-tf", type=str)
 def update_cmd(**kwargs):
-    update(**kwargs)
+    update_flatbuffer_schemata(**kwargs)
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    update_cmd()
+@cli.command(
+    "compile",
+    help="Assumes `flatc` to be available on path. See https://google.github.io/flatbuffers/",
+)
+def compile_cmd():
+    compile_schemata()
