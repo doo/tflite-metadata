@@ -1,0 +1,53 @@
+name: Update
+on:
+  pull_request:
+    branches:
+      - version-update/*
+
+jobs:
+  compile-files:
+    name: Compile files based on new Schemata
+    runs-on: macos-latest  # TODO: replace macos and brew with ubuntu docker container once everything works https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install flatc
+        shell: bash
+        run: |
+          brew install flatbuffers
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ steps.python-version.outputs.version }}
+
+      - id: cache-venv
+        name: Cache virtual environment
+        uses: actions/cache@v3
+        with:
+          path: ./.venv/
+          key: ${{ runner.os }}-${{ steps.python-version.outputs.version }}-venv-${{ hashFiles('requirements.txt', 'setup.py') }}
+
+      - name: Compile python files from Schemata
+        shell: bash
+        run: |
+          source ./.venv/bin/activate
+          python -m builder compile
+
+      - name: Update version file from branch name
+        shell: bash
+        run: |
+          tf_version=$(echo "${{ github.ref_name }}" | sed -E 's/.*\/(.*)\/.*/\1/')
+          tflite_support_version=$(echo "${{ github.ref_name }}" | sed -E 's/.*\/.*\/(.*)/\1/')
+          file_content="tensorflow:${tf_version}\ntflite-support:${tflite_support_version}\n"
+          printf "${file_content}" | sudo tee versions.txt > /dev/null
+
+      - name: commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'compile new files from schemata'
+          commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          commit_user_name: ${{ github.actor }}
+          commit_user_email: '${{ github.actor }}@users.noreply.github.com'
