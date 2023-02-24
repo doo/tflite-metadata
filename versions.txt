@@ -1,2 +1,2 @@
 tensorflow:v2.11.0
-tflite-support:v0.4.2
+tflite-support:v0.4.3
