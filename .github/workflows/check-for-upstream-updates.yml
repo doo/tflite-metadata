@@ -113,7 +113,7 @@ jobs:
         if: steps.changes.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN }}
           commit-message: update schemata and version file
           committer: CI[bot] <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
