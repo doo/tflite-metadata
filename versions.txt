@@ -1,2 +1,2 @@
-tensorflow:v2.11.0
-tflite-support:v0.4.2
+tensorflow:7/merge
+tflite-support:7/merge
