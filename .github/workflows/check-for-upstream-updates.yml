@@ -98,11 +98,16 @@ jobs:
         id: changes
         shell: bash
         run: |
-            git diff --exit-code --quiet src/tflite_metadata/schema/
-            echo "any_changed=$?" >> $GITHUB_OUTPUT
+          git diff --quiet src/tflite_metadata/schema/; no_changes=$?
+          if [[ $no_changes -eq 0 ]]; then
+            any_changed="false"
+          else
+            any_changed="true"
+          fi
+          echo "any_changed=${any_changed}" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
-        if: steps.changes.outputs.any_changed == 1
+        if: steps.changes.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
