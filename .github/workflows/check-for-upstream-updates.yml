@@ -98,11 +98,11 @@ jobs:
         id: changes
         shell: bash
         run: |
-          git diff --quiet src/tflite_metadata/schema/; no_changes=$?
-          if [[ $no_changes -eq 0 ]]; then
-            any_changed="false"
-          else
+          changes=$(git diff --name-only src/tflite_metadata/schema/)
+          if [[ -n ${changes} ]]; then
             any_changed="true"
+          else
+            any_changed="false"
           fi
           echo "any_changed=${any_changed}" >> $GITHUB_OUTPUT
 
