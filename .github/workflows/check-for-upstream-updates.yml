@@ -80,7 +80,7 @@ jobs:
           key: ${{ runner.os }}-${{ env.python_version }}-venv-${{ hashFiles('requirements.txt', 'setup.py') }}
 
       - name: Make virtual environment with dependencies
-#        if: steps.cache-venv.outputs.cache-hit != 'true'
+        if: steps.cache-venv.outputs.cache-hit != 'true'
         shell: bash
         run: |
           pip install --upgrade pip
@@ -96,12 +96,13 @@ jobs:
 
       - name: Check if there are changes
         id: changes
-        uses: tj-actions/changed-files@v35
-        with:
-          files: src/tflite_metadata/schema/*.fbs
+        shell: bash
+        run: |
+            git diff --exit-code --quiet src/tflite_metadata/schema/
+            echo "any_changed=$?" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
-        if: steps.changes.outputs.any_changed == 'true'
+        if: steps.changes.outputs.any_changed == 1
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
