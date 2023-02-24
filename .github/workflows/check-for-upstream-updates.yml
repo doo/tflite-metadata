@@ -80,7 +80,7 @@ jobs:
           key: ${{ runner.os }}-${{ env.python_version }}-venv-${{ hashFiles('requirements.txt', 'setup.py') }}
 
       - name: Make virtual environment with dependencies
-        if: steps.cache-venv.outputs.cache-hit != 'true'
+#        if: steps.cache-venv.outputs.cache-hit != 'true'
         shell: bash
         run: |
           pip install --upgrade pip
