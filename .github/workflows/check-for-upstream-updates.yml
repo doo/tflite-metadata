@@ -72,8 +72,8 @@ jobs:
         with:
           python-version: ${{ env.python_version }}
 
-      - id: cache-venv
-        name: Cache virtual environment
+      - name: Cache virtual environment
+        id: cache-venv
         uses: actions/cache@v3
         with:
           path: ./.venv/
@@ -91,6 +91,9 @@ jobs:
       - name: Update Schemata
         shell: bash
         run: |
+          ls -a
+          ls -a ./.venv
+          ls -a ./.venv/bin
           source ./.venv/bin/activate
           python -m builder update
 
