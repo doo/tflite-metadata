@@ -1,0 +1,65 @@
+name: Update
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  compile-files:
+    name: Compile files based on new Schemata
+    if:  startsWith(github.head_ref, 'version-update/')
+    runs-on: macos-latest
+    env:
+      python_version: 3.10.10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install flatc
+        shell: bash
+        run: |
+          brew install flatbuffers
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python_version }}
+
+      - id: cache-venv
+        name: Cache virtual environment
+        uses: actions/cache@v3
+        with:
+          path: ./.venv/
+          key: ${{ runner.os }}-${{ env.python_version }}-venv-${{ hashFiles('requirements.txt', 'setup.py') }}
+
+      - name: Make virtual environment with dependencies
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          pip install --upgrade pip
+          python -m venv ./.venv
+          source ./.venv/bin/activate
+          pip install -e ".[build]"
+
+      - name: Compile python files from Schemata
+        shell: bash
+        run: |
+          source ./.venv/bin/activate
+          python -m builder compile
+
+      - name: Update version file from branch name
+        shell: bash
+        run: |
+          tf_version=$(echo "${{ github.head_ref }}" | sed -E 's/.*\/(.*)\/.*/\1/')
+          tflite_support_version=$(echo "${{ github.head_ref }}" | sed -E 's/.*\/.*\/(.*)/\1/')
+          file_content="tensorflow:${tf_version}\ntflite-support:${tflite_support_version}\n"
+          printf "${file_content}" | sudo tee versions.txt > /dev/null
+
+      - name: commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'compile new files from schemata'
+          commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          commit_user_name: ${{ github.actor }}
+          commit_user_email: '${{ github.actor }}@users.noreply.github.com'
+          file_pattern: 'src/tflite/*.py'
