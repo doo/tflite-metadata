@@ -24,7 +24,7 @@ setup(
     package_data={"tflite_metadata.schema": ["*.pbs"]},
     python_requires=">=3.7, <4",
     # only functional dependencies, no dev dependencies (like pytest)
-    install_requires=["flatbuffers>=23.1.21"],
+    install_requires=["flatbuffers>=2.0"],
     extras_require={
         "dev": ["build"],
         "test": ["pytest"],
