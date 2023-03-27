@@ -58,20 +58,13 @@ def are_libs_outdated():
     return len(modified_files) > 0
 
 
-def update_compiled_libs():
+def compile_schemata():
     info("Remove old files")
     shutil.rmtree(TFLITE_ROOT)
     info("Compile schemata")
     for schema_file in (f for f in SCHEMA_ROOT.iterdir() if f.suffix == ".fbs"):
         compile_schema(schema_file, PACKAGES_ROOT)
     info("Done")
-
-
-def compile_schemata():
-    if are_libs_outdated():
-        update_compiled_libs()
-    else:
-        info("No upstream changes")
 
 
 @click.group()
