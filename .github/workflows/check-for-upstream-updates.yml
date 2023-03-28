@@ -113,7 +113,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          commit-message: update schemata and version file
+          commit-message: update schemata
           committer: CI[bot] <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: ${{ needs.check-versions.outputs.branch-name }}
