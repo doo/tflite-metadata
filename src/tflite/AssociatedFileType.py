@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class AssociatedFileType(object):
     UNKNOWN = 0
     DESCRIPTIONS = 1

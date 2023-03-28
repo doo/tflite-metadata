@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class ProcessUnitOptions(object):
     NONE = 0
     NormalizationOptions = 1
@@ -12,42 +11,26 @@ class ProcessUnitOptions(object):
     SentencePieceTokenizerOptions = 5
     RegexTokenizerOptions = 6
 
-
 def ProcessUnitOptionsCreator(unionType, table):
     from flatbuffers.table import Table
-
     if not isinstance(table, Table):
         return None
     if unionType == ProcessUnitOptions().NormalizationOptions:
         import tflite.NormalizationOptions
-
         return tflite.NormalizationOptions.NormalizationOptionsT.InitFromBuf(table.Bytes, table.Pos)
     if unionType == ProcessUnitOptions().ScoreCalibrationOptions:
         import tflite.ScoreCalibrationOptions
-
-        return tflite.ScoreCalibrationOptions.ScoreCalibrationOptionsT.InitFromBuf(
-            table.Bytes, table.Pos
-        )
+        return tflite.ScoreCalibrationOptions.ScoreCalibrationOptionsT.InitFromBuf(table.Bytes, table.Pos)
     if unionType == ProcessUnitOptions().ScoreThresholdingOptions:
         import tflite.ScoreThresholdingOptions
-
-        return tflite.ScoreThresholdingOptions.ScoreThresholdingOptionsT.InitFromBuf(
-            table.Bytes, table.Pos
-        )
+        return tflite.ScoreThresholdingOptions.ScoreThresholdingOptionsT.InitFromBuf(table.Bytes, table.Pos)
     if unionType == ProcessUnitOptions().BertTokenizerOptions:
         import tflite.BertTokenizerOptions
-
         return tflite.BertTokenizerOptions.BertTokenizerOptionsT.InitFromBuf(table.Bytes, table.Pos)
     if unionType == ProcessUnitOptions().SentencePieceTokenizerOptions:
         import tflite.SentencePieceTokenizerOptions
-
-        return tflite.SentencePieceTokenizerOptions.SentencePieceTokenizerOptionsT.InitFromBuf(
-            table.Bytes, table.Pos
-        )
+        return tflite.SentencePieceTokenizerOptions.SentencePieceTokenizerOptionsT.InitFromBuf(table.Bytes, table.Pos)
     if unionType == ProcessUnitOptions().RegexTokenizerOptions:
         import tflite.RegexTokenizerOptions
-
-        return tflite.RegexTokenizerOptions.RegexTokenizerOptionsT.InitFromBuf(
-            table.Bytes, table.Pos
-        )
+        return tflite.RegexTokenizerOptions.RegexTokenizerOptionsT.InitFromBuf(table.Bytes, table.Pos)
     return None

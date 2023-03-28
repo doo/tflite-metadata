@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ScoreThresholdingOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ScoreThresholdingOptions(object):
     def GetRootAsScoreThresholdingOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ScoreThresholdingOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # ScoreThresholdingOptions
     def Init(self, buf, pos):
@@ -40,30 +35,15 @@ class ScoreThresholdingOptions(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-
-def ScoreThresholdingOptionsStart(builder):
-    builder.StartObject(1)
-
-
+def ScoreThresholdingOptionsStart(builder): builder.StartObject(1)
 def Start(builder):
     return ScoreThresholdingOptionsStart(builder)
-
-
-def ScoreThresholdingOptionsAddGlobalScoreThreshold(builder, globalScoreThreshold):
-    builder.PrependFloat32Slot(0, globalScoreThreshold, 0.0)
-
-
+def ScoreThresholdingOptionsAddGlobalScoreThreshold(builder, globalScoreThreshold): builder.PrependFloat32Slot(0, globalScoreThreshold, 0.0)
 def AddGlobalScoreThreshold(builder, globalScoreThreshold):
     return ScoreThresholdingOptionsAddGlobalScoreThreshold(builder, globalScoreThreshold)
-
-
-def ScoreThresholdingOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def ScoreThresholdingOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ScoreThresholdingOptionsEnd(builder)
-
 
 class ScoreThresholdingOptionsT(object):
 
@@ -80,7 +60,7 @@ class ScoreThresholdingOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, scoreThresholdingOptions):

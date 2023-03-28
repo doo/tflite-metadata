@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class Uint8Vector(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class Uint8Vector(object):
     def GetRootAsUint8Vector(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def Uint8VectorBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # Uint8Vector
     def Init(self, buf, pos):
@@ -38,10 +33,7 @@ class Uint8Vector(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Uint8Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1),
-            )
+            return self._tab.Get(flatbuffers.number_types.Uint8Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1))
         return 0
 
     # Uint8Vector
@@ -63,46 +55,22 @@ class Uint8Vector(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
-
-def Uint8VectorStart(builder):
-    builder.StartObject(1)
-
-
+def Uint8VectorStart(builder): builder.StartObject(1)
 def Start(builder):
     return Uint8VectorStart(builder)
-
-
-def Uint8VectorAddValues(builder, values):
-    builder.PrependUOffsetTRelativeSlot(
-        0, flatbuffers.number_types.UOffsetTFlags.py_type(values), 0
-    )
-
-
+def Uint8VectorAddValues(builder, values): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(values), 0)
 def AddValues(builder, values):
     return Uint8VectorAddValues(builder, values)
-
-
-def Uint8VectorStartValuesVector(builder, numElems):
-    return builder.StartVector(1, numElems, 1)
-
-
+def Uint8VectorStartValuesVector(builder, numElems): return builder.StartVector(1, numElems, 1)
 def StartValuesVector(builder, numElems):
     return Uint8VectorStartValuesVector(builder, numElems)
-
-
-def Uint8VectorEnd(builder):
-    return builder.EndObject()
-
-
+def Uint8VectorEnd(builder): return builder.EndObject()
 def End(builder):
     return Uint8VectorEnd(builder)
-
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class Uint8VectorT(object):
 
@@ -119,7 +87,7 @@ class Uint8VectorT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, uint8Vector):

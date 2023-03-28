@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ScoreCalibrationOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ScoreCalibrationOptions(object):
     def GetRootAsScoreCalibrationOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ScoreCalibrationOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # ScoreCalibrationOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class ScoreCalibrationOptions(object):
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
-
-def ScoreCalibrationOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def ScoreCalibrationOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return ScoreCalibrationOptionsStart(builder)
-
-
-def ScoreCalibrationOptionsAddScoreTransformation(builder, scoreTransformation):
-    builder.PrependInt8Slot(0, scoreTransformation, 0)
-
-
+def ScoreCalibrationOptionsAddScoreTransformation(builder, scoreTransformation): builder.PrependInt8Slot(0, scoreTransformation, 0)
 def AddScoreTransformation(builder, scoreTransformation):
     return ScoreCalibrationOptionsAddScoreTransformation(builder, scoreTransformation)
-
-
-def ScoreCalibrationOptionsAddDefaultScore(builder, defaultScore):
-    builder.PrependFloat32Slot(1, defaultScore, 0.0)
-
-
+def ScoreCalibrationOptionsAddDefaultScore(builder, defaultScore): builder.PrependFloat32Slot(1, defaultScore, 0.0)
 def AddDefaultScore(builder, defaultScore):
     return ScoreCalibrationOptionsAddDefaultScore(builder, defaultScore)
-
-
-def ScoreCalibrationOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def ScoreCalibrationOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ScoreCalibrationOptionsEnd(builder)
-
 
 class ScoreCalibrationOptionsT(object):
 
@@ -96,7 +71,7 @@ class ScoreCalibrationOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, scoreCalibrationOptions):

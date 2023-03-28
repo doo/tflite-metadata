@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class TransposeConvOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class TransposeConvOptions(object):
     def GetRootAsTransposeConvOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def TransposeConvOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # TransposeConvOptions
     def Init(self, buf, pos):
@@ -61,54 +56,24 @@ class TransposeConvOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int8Flags, o + self._tab.Pos)
         return 0
 
-
-def TransposeConvOptionsStart(builder):
-    builder.StartObject(4)
-
-
+def TransposeConvOptionsStart(builder): builder.StartObject(4)
 def Start(builder):
     return TransposeConvOptionsStart(builder)
-
-
-def TransposeConvOptionsAddPadding(builder, padding):
-    builder.PrependInt8Slot(0, padding, 0)
-
-
+def TransposeConvOptionsAddPadding(builder, padding): builder.PrependInt8Slot(0, padding, 0)
 def AddPadding(builder, padding):
     return TransposeConvOptionsAddPadding(builder, padding)
-
-
-def TransposeConvOptionsAddStrideW(builder, strideW):
-    builder.PrependInt32Slot(1, strideW, 0)
-
-
+def TransposeConvOptionsAddStrideW(builder, strideW): builder.PrependInt32Slot(1, strideW, 0)
 def AddStrideW(builder, strideW):
     return TransposeConvOptionsAddStrideW(builder, strideW)
-
-
-def TransposeConvOptionsAddStrideH(builder, strideH):
-    builder.PrependInt32Slot(2, strideH, 0)
-
-
+def TransposeConvOptionsAddStrideH(builder, strideH): builder.PrependInt32Slot(2, strideH, 0)
 def AddStrideH(builder, strideH):
     return TransposeConvOptionsAddStrideH(builder, strideH)
-
-
-def TransposeConvOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(3, fusedActivationFunction, 0)
-
-
+def TransposeConvOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(3, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
     return TransposeConvOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
-
-
-def TransposeConvOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def TransposeConvOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return TransposeConvOptionsEnd(builder)
-
 
 class TransposeConvOptionsT(object):
 
@@ -128,7 +93,7 @@ class TransposeConvOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, transposeConvOptions):

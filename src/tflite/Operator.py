@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class Operator(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class Operator(object):
     def GetRootAsOperator(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def OperatorBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # Operator
     def Init(self, buf, pos):
@@ -45,10 +40,7 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Int32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Int32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # Operator
@@ -75,10 +67,7 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Int32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Int32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # Operator
@@ -112,7 +101,6 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             from flatbuffers.table import Table
-
             obj = Table(bytearray(), 0)
             self._tab.Union(obj, o)
             return obj
@@ -123,10 +111,7 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(14))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Uint8Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1),
-            )
+            return self._tab.Get(flatbuffers.number_types.Uint8Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1))
         return 0
 
     # Operator
@@ -160,10 +145,7 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(18))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.BoolFlags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1),
-            )
+            return self._tab.Get(flatbuffers.number_types.BoolFlags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 1))
         return 0
 
     # Operator
@@ -190,10 +172,7 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(20))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Int32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Int32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # Operator
@@ -215,158 +194,66 @@ class Operator(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(20))
         return o == 0
 
-
-def OperatorStart(builder):
-    builder.StartObject(9)
-
-
+def OperatorStart(builder): builder.StartObject(9)
 def Start(builder):
     return OperatorStart(builder)
-
-
-def OperatorAddOpcodeIndex(builder, opcodeIndex):
-    builder.PrependUint32Slot(0, opcodeIndex, 0)
-
-
+def OperatorAddOpcodeIndex(builder, opcodeIndex): builder.PrependUint32Slot(0, opcodeIndex, 0)
 def AddOpcodeIndex(builder, opcodeIndex):
     return OperatorAddOpcodeIndex(builder, opcodeIndex)
-
-
-def OperatorAddInputs(builder, inputs):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(inputs), 0
-    )
-
-
+def OperatorAddInputs(builder, inputs): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(inputs), 0)
 def AddInputs(builder, inputs):
     return OperatorAddInputs(builder, inputs)
-
-
-def OperatorStartInputsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def OperatorStartInputsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartInputsVector(builder, numElems):
     return OperatorStartInputsVector(builder, numElems)
-
-
-def OperatorAddOutputs(builder, outputs):
-    builder.PrependUOffsetTRelativeSlot(
-        2, flatbuffers.number_types.UOffsetTFlags.py_type(outputs), 0
-    )
-
-
+def OperatorAddOutputs(builder, outputs): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(outputs), 0)
 def AddOutputs(builder, outputs):
     return OperatorAddOutputs(builder, outputs)
-
-
-def OperatorStartOutputsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def OperatorStartOutputsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartOutputsVector(builder, numElems):
     return OperatorStartOutputsVector(builder, numElems)
-
-
-def OperatorAddBuiltinOptionsType(builder, builtinOptionsType):
-    builder.PrependUint8Slot(3, builtinOptionsType, 0)
-
-
+def OperatorAddBuiltinOptionsType(builder, builtinOptionsType): builder.PrependUint8Slot(3, builtinOptionsType, 0)
 def AddBuiltinOptionsType(builder, builtinOptionsType):
     return OperatorAddBuiltinOptionsType(builder, builtinOptionsType)
-
-
-def OperatorAddBuiltinOptions(builder, builtinOptions):
-    builder.PrependUOffsetTRelativeSlot(
-        4, flatbuffers.number_types.UOffsetTFlags.py_type(builtinOptions), 0
-    )
-
-
+def OperatorAddBuiltinOptions(builder, builtinOptions): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(builtinOptions), 0)
 def AddBuiltinOptions(builder, builtinOptions):
     return OperatorAddBuiltinOptions(builder, builtinOptions)
-
-
-def OperatorAddCustomOptions(builder, customOptions):
-    builder.PrependUOffsetTRelativeSlot(
-        5, flatbuffers.number_types.UOffsetTFlags.py_type(customOptions), 0
-    )
-
-
+def OperatorAddCustomOptions(builder, customOptions): builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(customOptions), 0)
 def AddCustomOptions(builder, customOptions):
     return OperatorAddCustomOptions(builder, customOptions)
-
-
-def OperatorStartCustomOptionsVector(builder, numElems):
-    return builder.StartVector(1, numElems, 1)
-
-
+def OperatorStartCustomOptionsVector(builder, numElems): return builder.StartVector(1, numElems, 1)
 def StartCustomOptionsVector(builder, numElems):
     return OperatorStartCustomOptionsVector(builder, numElems)
-
-
-def OperatorAddCustomOptionsFormat(builder, customOptionsFormat):
-    builder.PrependInt8Slot(6, customOptionsFormat, 0)
-
-
+def OperatorAddCustomOptionsFormat(builder, customOptionsFormat): builder.PrependInt8Slot(6, customOptionsFormat, 0)
 def AddCustomOptionsFormat(builder, customOptionsFormat):
     return OperatorAddCustomOptionsFormat(builder, customOptionsFormat)
-
-
-def OperatorAddMutatingVariableInputs(builder, mutatingVariableInputs):
-    builder.PrependUOffsetTRelativeSlot(
-        7, flatbuffers.number_types.UOffsetTFlags.py_type(mutatingVariableInputs), 0
-    )
-
-
+def OperatorAddMutatingVariableInputs(builder, mutatingVariableInputs): builder.PrependUOffsetTRelativeSlot(7, flatbuffers.number_types.UOffsetTFlags.py_type(mutatingVariableInputs), 0)
 def AddMutatingVariableInputs(builder, mutatingVariableInputs):
     return OperatorAddMutatingVariableInputs(builder, mutatingVariableInputs)
-
-
-def OperatorStartMutatingVariableInputsVector(builder, numElems):
-    return builder.StartVector(1, numElems, 1)
-
-
+def OperatorStartMutatingVariableInputsVector(builder, numElems): return builder.StartVector(1, numElems, 1)
 def StartMutatingVariableInputsVector(builder, numElems):
     return OperatorStartMutatingVariableInputsVector(builder, numElems)
-
-
-def OperatorAddIntermediates(builder, intermediates):
-    builder.PrependUOffsetTRelativeSlot(
-        8, flatbuffers.number_types.UOffsetTFlags.py_type(intermediates), 0
-    )
-
-
+def OperatorAddIntermediates(builder, intermediates): builder.PrependUOffsetTRelativeSlot(8, flatbuffers.number_types.UOffsetTFlags.py_type(intermediates), 0)
 def AddIntermediates(builder, intermediates):
     return OperatorAddIntermediates(builder, intermediates)
-
-
-def OperatorStartIntermediatesVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def OperatorStartIntermediatesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartIntermediatesVector(builder, numElems):
     return OperatorStartIntermediatesVector(builder, numElems)
-
-
-def OperatorEnd(builder):
-    return builder.EndObject()
-
-
+def OperatorEnd(builder): return builder.EndObject()
 def End(builder):
     return OperatorEnd(builder)
-
-
+import tflite.ATan2Options
 import tflite.AbsOptions
 import tflite.AddNOptions
 import tflite.AddOptions
 import tflite.ArgMaxOptions
 import tflite.ArgMinOptions
 import tflite.AssignVariableOptions
-import tflite.ATan2Options
 import tflite.BatchMatMulOptions
 import tflite.BatchToSpaceNDOptions
 import tflite.BidirectionalSequenceLSTMOptions
 import tflite.BidirectionalSequenceRNNOptions
+import tflite.BitcastOptions
 import tflite.BroadcastToOptions
 import tflite.BucketizeOptions
 import tflite.BuiltinOptions
@@ -387,8 +274,8 @@ import tflite.DivOptions
 import tflite.DynamicUpdateSliceOptions
 import tflite.EmbeddingLookupSparseOptions
 import tflite.EqualOptions
-import tflite.ExpandDimsOptions
 import tflite.ExpOptions
+import tflite.ExpandDimsOptions
 import tflite.FakeQuantOptions
 import tflite.FillOptions
 import tflite.FloorDivOptions
@@ -406,16 +293,16 @@ import tflite.HashtableOptions
 import tflite.HashtableSizeOptions
 import tflite.IfOptions
 import tflite.L2NormOptions
+import tflite.LSHProjectionOptions
+import tflite.LSTMOptions
 import tflite.LeakyReluOptions
 import tflite.LessEqualOptions
 import tflite.LessOptions
 import tflite.LocalResponseNormalizationOptions
+import tflite.LogSoftmaxOptions
 import tflite.LogicalAndOptions
 import tflite.LogicalNotOptions
 import tflite.LogicalOrOptions
-import tflite.LogSoftmaxOptions
-import tflite.LSHProjectionOptions
-import tflite.LSTMOptions
 import tflite.MatrixDiagOptions
 import tflite.MatrixSetDiagOptions
 import tflite.MaximumMinimumOptions
@@ -432,6 +319,7 @@ import tflite.PadV2Options
 import tflite.Pool2DOptions
 import tflite.PowOptions
 import tflite.QuantizeOptions
+import tflite.RNNOptions
 import tflite.RandomOptions
 import tflite.RangeOptions
 import tflite.RankOptions
@@ -443,7 +331,7 @@ import tflite.ResizeNearestNeighborOptions
 import tflite.ReverseSequenceOptions
 import tflite.ReverseV2Options
 import tflite.Rfft2dOptions
-import tflite.RNNOptions
+import tflite.SVDFOptions
 import tflite.ScatterNdOptions
 import tflite.SegmentSumOptions
 import tflite.SelectOptions
@@ -459,12 +347,11 @@ import tflite.SpaceToDepthOptions
 import tflite.SparseToDenseOptions
 import tflite.SplitOptions
 import tflite.SplitVOptions
-import tflite.SquaredDifferenceOptions
 import tflite.SquareOptions
+import tflite.SquaredDifferenceOptions
 import tflite.SqueezeOptions
 import tflite.StridedSliceOptions
 import tflite.SubOptions
-import tflite.SVDFOptions
 import tflite.TileOptions
 import tflite.TopKV2Options
 import tflite.TransposeConvOptions
@@ -480,12 +367,10 @@ import tflite.VarHandleOptions
 import tflite.WhereOptions
 import tflite.WhileOptions
 import tflite.ZerosLikeOptions
-
 try:
-    pass
+    from typing import List, Union
 except:
     pass
-
 
 class OperatorT(object):
 
@@ -495,9 +380,7 @@ class OperatorT(object):
         self.inputs = None  # type: List[int]
         self.outputs = None  # type: List[int]
         self.builtinOptionsType = 0  # type: int
-        self.builtinOptions = (
-            None
-        )  # type: Union[None, tflite.Conv2DOptions.Conv2DOptionsT, tflite.DepthwiseConv2DOptions.DepthwiseConv2DOptionsT, tflite.ConcatEmbeddingsOptions.ConcatEmbeddingsOptionsT, tflite.LSHProjectionOptions.LSHProjectionOptionsT, tflite.Pool2DOptions.Pool2DOptionsT, tflite.SVDFOptions.SVDFOptionsT, tflite.RNNOptions.RNNOptionsT, tflite.FullyConnectedOptions.FullyConnectedOptionsT, tflite.SoftmaxOptions.SoftmaxOptionsT, tflite.ConcatenationOptions.ConcatenationOptionsT, tflite.AddOptions.AddOptionsT, tflite.L2NormOptions.L2NormOptionsT, tflite.LocalResponseNormalizationOptions.LocalResponseNormalizationOptionsT, tflite.LSTMOptions.LSTMOptionsT, tflite.ResizeBilinearOptions.ResizeBilinearOptionsT, tflite.CallOptions.CallOptionsT, tflite.ReshapeOptions.ReshapeOptionsT, tflite.SkipGramOptions.SkipGramOptionsT, tflite.SpaceToDepthOptions.SpaceToDepthOptionsT, tflite.EmbeddingLookupSparseOptions.EmbeddingLookupSparseOptionsT, tflite.MulOptions.MulOptionsT, tflite.PadOptions.PadOptionsT, tflite.GatherOptions.GatherOptionsT, tflite.BatchToSpaceNDOptions.BatchToSpaceNDOptionsT, tflite.SpaceToBatchNDOptions.SpaceToBatchNDOptionsT, tflite.TransposeOptions.TransposeOptionsT, tflite.ReducerOptions.ReducerOptionsT, tflite.SubOptions.SubOptionsT, tflite.DivOptions.DivOptionsT, tflite.SqueezeOptions.SqueezeOptionsT, tflite.SequenceRNNOptions.SequenceRNNOptionsT, tflite.StridedSliceOptions.StridedSliceOptionsT, tflite.ExpOptions.ExpOptionsT, tflite.TopKV2Options.TopKV2OptionsT, tflite.SplitOptions.SplitOptionsT, tflite.LogSoftmaxOptions.LogSoftmaxOptionsT, tflite.CastOptions.CastOptionsT, tflite.DequantizeOptions.DequantizeOptionsT, tflite.MaximumMinimumOptions.MaximumMinimumOptionsT, tflite.ArgMaxOptions.ArgMaxOptionsT, tflite.LessOptions.LessOptionsT, tflite.NegOptions.NegOptionsT, tflite.PadV2Options.PadV2OptionsT, tflite.GreaterOptions.GreaterOptionsT, tflite.GreaterEqualOptions.GreaterEqualOptionsT, tflite.LessEqualOptions.LessEqualOptionsT, tflite.SelectOptions.SelectOptionsT, tflite.SliceOptions.SliceOptionsT, tflite.TransposeConvOptions.TransposeConvOptionsT, tflite.SparseToDenseOptions.SparseToDenseOptionsT, tflite.TileOptions.TileOptionsT, tflite.ExpandDimsOptions.ExpandDimsOptionsT, tflite.EqualOptions.EqualOptionsT, tflite.NotEqualOptions.NotEqualOptionsT, tflite.ShapeOptions.ShapeOptionsT, tflite.PowOptions.PowOptionsT, tflite.ArgMinOptions.ArgMinOptionsT, tflite.FakeQuantOptions.FakeQuantOptionsT, tflite.PackOptions.PackOptionsT, tflite.LogicalOrOptions.LogicalOrOptionsT, tflite.OneHotOptions.OneHotOptionsT, tflite.LogicalAndOptions.LogicalAndOptionsT, tflite.LogicalNotOptions.LogicalNotOptionsT, tflite.UnpackOptions.UnpackOptionsT, tflite.FloorDivOptions.FloorDivOptionsT, tflite.SquareOptions.SquareOptionsT, tflite.ZerosLikeOptions.ZerosLikeOptionsT, tflite.FillOptions.FillOptionsT, tflite.BidirectionalSequenceLSTMOptions.BidirectionalSequenceLSTMOptionsT, tflite.BidirectionalSequenceRNNOptions.BidirectionalSequenceRNNOptionsT, tflite.UnidirectionalSequenceLSTMOptions.UnidirectionalSequenceLSTMOptionsT, tflite.FloorModOptions.FloorModOptionsT, tflite.RangeOptions.RangeOptionsT, tflite.ResizeNearestNeighborOptions.ResizeNearestNeighborOptionsT, tflite.LeakyReluOptions.LeakyReluOptionsT, tflite.SquaredDifferenceOptions.SquaredDifferenceOptionsT, tflite.MirrorPadOptions.MirrorPadOptionsT, tflite.AbsOptions.AbsOptionsT, tflite.SplitVOptions.SplitVOptionsT, tflite.UniqueOptions.UniqueOptionsT, tflite.ReverseV2Options.ReverseV2OptionsT, tflite.AddNOptions.AddNOptionsT, tflite.GatherNdOptions.GatherNdOptionsT, tflite.CosOptions.CosOptionsT, tflite.WhereOptions.WhereOptionsT, tflite.RankOptions.RankOptionsT, tflite.ReverseSequenceOptions.ReverseSequenceOptionsT, tflite.MatrixDiagOptions.MatrixDiagOptionsT, tflite.QuantizeOptions.QuantizeOptionsT, tflite.MatrixSetDiagOptions.MatrixSetDiagOptionsT, tflite.HardSwishOptions.HardSwishOptionsT, tflite.IfOptions.IfOptionsT, tflite.WhileOptions.WhileOptionsT, tflite.DepthToSpaceOptions.DepthToSpaceOptionsT, tflite.NonMaxSuppressionV4Options.NonMaxSuppressionV4OptionsT, tflite.NonMaxSuppressionV5Options.NonMaxSuppressionV5OptionsT, tflite.ScatterNdOptions.ScatterNdOptionsT, tflite.SelectV2Options.SelectV2OptionsT, tflite.DensifyOptions.DensifyOptionsT, tflite.SegmentSumOptions.SegmentSumOptionsT, tflite.BatchMatMulOptions.BatchMatMulOptionsT, tflite.CumsumOptions.CumsumOptionsT, tflite.CallOnceOptions.CallOnceOptionsT, tflite.BroadcastToOptions.BroadcastToOptionsT, tflite.Rfft2dOptions.Rfft2dOptionsT, tflite.Conv3DOptions.Conv3DOptionsT, tflite.HashtableOptions.HashtableOptionsT, tflite.HashtableFindOptions.HashtableFindOptionsT, tflite.HashtableImportOptions.HashtableImportOptionsT, tflite.HashtableSizeOptions.HashtableSizeOptionsT, tflite.VarHandleOptions.VarHandleOptionsT, tflite.ReadVariableOptions.ReadVariableOptionsT, tflite.AssignVariableOptions.AssignVariableOptionsT, tflite.RandomOptions.RandomOptionsT, tflite.BucketizeOptions.BucketizeOptionsT, tflite.GeluOptions.GeluOptionsT, tflite.DynamicUpdateSliceOptions.DynamicUpdateSliceOptionsT, tflite.UnsortedSegmentProdOptions.UnsortedSegmentProdOptionsT, tflite.UnsortedSegmentMaxOptions.UnsortedSegmentMaxOptionsT, tflite.UnsortedSegmentMinOptions.UnsortedSegmentMinOptionsT, tflite.UnsortedSegmentSumOptions.UnsortedSegmentSumOptionsT, tflite.ATan2Options.ATan2OptionsT, tflite.SignOptions.SignOptionsT]
+        self.builtinOptions = None  # type: Union[None, tflite.Conv2DOptions.Conv2DOptionsT, tflite.DepthwiseConv2DOptions.DepthwiseConv2DOptionsT, tflite.ConcatEmbeddingsOptions.ConcatEmbeddingsOptionsT, tflite.LSHProjectionOptions.LSHProjectionOptionsT, tflite.Pool2DOptions.Pool2DOptionsT, tflite.SVDFOptions.SVDFOptionsT, tflite.RNNOptions.RNNOptionsT, tflite.FullyConnectedOptions.FullyConnectedOptionsT, tflite.SoftmaxOptions.SoftmaxOptionsT, tflite.ConcatenationOptions.ConcatenationOptionsT, tflite.AddOptions.AddOptionsT, tflite.L2NormOptions.L2NormOptionsT, tflite.LocalResponseNormalizationOptions.LocalResponseNormalizationOptionsT, tflite.LSTMOptions.LSTMOptionsT, tflite.ResizeBilinearOptions.ResizeBilinearOptionsT, tflite.CallOptions.CallOptionsT, tflite.ReshapeOptions.ReshapeOptionsT, tflite.SkipGramOptions.SkipGramOptionsT, tflite.SpaceToDepthOptions.SpaceToDepthOptionsT, tflite.EmbeddingLookupSparseOptions.EmbeddingLookupSparseOptionsT, tflite.MulOptions.MulOptionsT, tflite.PadOptions.PadOptionsT, tflite.GatherOptions.GatherOptionsT, tflite.BatchToSpaceNDOptions.BatchToSpaceNDOptionsT, tflite.SpaceToBatchNDOptions.SpaceToBatchNDOptionsT, tflite.TransposeOptions.TransposeOptionsT, tflite.ReducerOptions.ReducerOptionsT, tflite.SubOptions.SubOptionsT, tflite.DivOptions.DivOptionsT, tflite.SqueezeOptions.SqueezeOptionsT, tflite.SequenceRNNOptions.SequenceRNNOptionsT, tflite.StridedSliceOptions.StridedSliceOptionsT, tflite.ExpOptions.ExpOptionsT, tflite.TopKV2Options.TopKV2OptionsT, tflite.SplitOptions.SplitOptionsT, tflite.LogSoftmaxOptions.LogSoftmaxOptionsT, tflite.CastOptions.CastOptionsT, tflite.DequantizeOptions.DequantizeOptionsT, tflite.MaximumMinimumOptions.MaximumMinimumOptionsT, tflite.ArgMaxOptions.ArgMaxOptionsT, tflite.LessOptions.LessOptionsT, tflite.NegOptions.NegOptionsT, tflite.PadV2Options.PadV2OptionsT, tflite.GreaterOptions.GreaterOptionsT, tflite.GreaterEqualOptions.GreaterEqualOptionsT, tflite.LessEqualOptions.LessEqualOptionsT, tflite.SelectOptions.SelectOptionsT, tflite.SliceOptions.SliceOptionsT, tflite.TransposeConvOptions.TransposeConvOptionsT, tflite.SparseToDenseOptions.SparseToDenseOptionsT, tflite.TileOptions.TileOptionsT, tflite.ExpandDimsOptions.ExpandDimsOptionsT, tflite.EqualOptions.EqualOptionsT, tflite.NotEqualOptions.NotEqualOptionsT, tflite.ShapeOptions.ShapeOptionsT, tflite.PowOptions.PowOptionsT, tflite.ArgMinOptions.ArgMinOptionsT, tflite.FakeQuantOptions.FakeQuantOptionsT, tflite.PackOptions.PackOptionsT, tflite.LogicalOrOptions.LogicalOrOptionsT, tflite.OneHotOptions.OneHotOptionsT, tflite.LogicalAndOptions.LogicalAndOptionsT, tflite.LogicalNotOptions.LogicalNotOptionsT, tflite.UnpackOptions.UnpackOptionsT, tflite.FloorDivOptions.FloorDivOptionsT, tflite.SquareOptions.SquareOptionsT, tflite.ZerosLikeOptions.ZerosLikeOptionsT, tflite.FillOptions.FillOptionsT, tflite.BidirectionalSequenceLSTMOptions.BidirectionalSequenceLSTMOptionsT, tflite.BidirectionalSequenceRNNOptions.BidirectionalSequenceRNNOptionsT, tflite.UnidirectionalSequenceLSTMOptions.UnidirectionalSequenceLSTMOptionsT, tflite.FloorModOptions.FloorModOptionsT, tflite.RangeOptions.RangeOptionsT, tflite.ResizeNearestNeighborOptions.ResizeNearestNeighborOptionsT, tflite.LeakyReluOptions.LeakyReluOptionsT, tflite.SquaredDifferenceOptions.SquaredDifferenceOptionsT, tflite.MirrorPadOptions.MirrorPadOptionsT, tflite.AbsOptions.AbsOptionsT, tflite.SplitVOptions.SplitVOptionsT, tflite.UniqueOptions.UniqueOptionsT, tflite.ReverseV2Options.ReverseV2OptionsT, tflite.AddNOptions.AddNOptionsT, tflite.GatherNdOptions.GatherNdOptionsT, tflite.CosOptions.CosOptionsT, tflite.WhereOptions.WhereOptionsT, tflite.RankOptions.RankOptionsT, tflite.ReverseSequenceOptions.ReverseSequenceOptionsT, tflite.MatrixDiagOptions.MatrixDiagOptionsT, tflite.QuantizeOptions.QuantizeOptionsT, tflite.MatrixSetDiagOptions.MatrixSetDiagOptionsT, tflite.HardSwishOptions.HardSwishOptionsT, tflite.IfOptions.IfOptionsT, tflite.WhileOptions.WhileOptionsT, tflite.DepthToSpaceOptions.DepthToSpaceOptionsT, tflite.NonMaxSuppressionV4Options.NonMaxSuppressionV4OptionsT, tflite.NonMaxSuppressionV5Options.NonMaxSuppressionV5OptionsT, tflite.ScatterNdOptions.ScatterNdOptionsT, tflite.SelectV2Options.SelectV2OptionsT, tflite.DensifyOptions.DensifyOptionsT, tflite.SegmentSumOptions.SegmentSumOptionsT, tflite.BatchMatMulOptions.BatchMatMulOptionsT, tflite.CumsumOptions.CumsumOptionsT, tflite.CallOnceOptions.CallOnceOptionsT, tflite.BroadcastToOptions.BroadcastToOptionsT, tflite.Rfft2dOptions.Rfft2dOptionsT, tflite.Conv3DOptions.Conv3DOptionsT, tflite.HashtableOptions.HashtableOptionsT, tflite.HashtableFindOptions.HashtableFindOptionsT, tflite.HashtableImportOptions.HashtableImportOptionsT, tflite.HashtableSizeOptions.HashtableSizeOptionsT, tflite.VarHandleOptions.VarHandleOptionsT, tflite.ReadVariableOptions.ReadVariableOptionsT, tflite.AssignVariableOptions.AssignVariableOptionsT, tflite.RandomOptions.RandomOptionsT, tflite.BucketizeOptions.BucketizeOptionsT, tflite.GeluOptions.GeluOptionsT, tflite.DynamicUpdateSliceOptions.DynamicUpdateSliceOptionsT, tflite.UnsortedSegmentProdOptions.UnsortedSegmentProdOptionsT, tflite.UnsortedSegmentMaxOptions.UnsortedSegmentMaxOptionsT, tflite.UnsortedSegmentMinOptions.UnsortedSegmentMinOptionsT, tflite.UnsortedSegmentSumOptions.UnsortedSegmentSumOptionsT, tflite.ATan2Options.ATan2OptionsT, tflite.SignOptions.SignOptionsT, tflite.BitcastOptions.BitcastOptionsT]
         self.customOptions = None  # type: List[int]
         self.customOptionsFormat = 0  # type: int
         self.mutatingVariableInputs = None  # type: List[bool]
@@ -512,7 +395,7 @@ class OperatorT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, operator):
@@ -540,9 +423,7 @@ class OperatorT(object):
             else:
                 self.outputs = operator.OutputsAsNumpy()
         self.builtinOptionsType = operator.BuiltinOptionsType()
-        self.builtinOptions = tflite.BuiltinOptions.BuiltinOptionsCreator(
-            self.builtinOptionsType, operator.BuiltinOptions()
-        )
+        self.builtinOptions = tflite.BuiltinOptions.BuiltinOptionsCreator(self.builtinOptionsType, operator.BuiltinOptions())
         if not operator.CustomOptionsIsNone():
             if np is None:
                 self.customOptions = []

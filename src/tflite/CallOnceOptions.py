@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class CallOnceOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class CallOnceOptions(object):
     def GetRootAsCallOnceOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def CallOnceOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # CallOnceOptions
     def Init(self, buf, pos):
@@ -40,30 +35,15 @@ class CallOnceOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int32Flags, o + self._tab.Pos)
         return 0
 
-
-def CallOnceOptionsStart(builder):
-    builder.StartObject(1)
-
-
+def CallOnceOptionsStart(builder): builder.StartObject(1)
 def Start(builder):
     return CallOnceOptionsStart(builder)
-
-
-def CallOnceOptionsAddInitSubgraphIndex(builder, initSubgraphIndex):
-    builder.PrependInt32Slot(0, initSubgraphIndex, 0)
-
-
+def CallOnceOptionsAddInitSubgraphIndex(builder, initSubgraphIndex): builder.PrependInt32Slot(0, initSubgraphIndex, 0)
 def AddInitSubgraphIndex(builder, initSubgraphIndex):
     return CallOnceOptionsAddInitSubgraphIndex(builder, initSubgraphIndex)
-
-
-def CallOnceOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def CallOnceOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return CallOnceOptionsEnd(builder)
-
 
 class CallOnceOptionsT(object):
 
@@ -80,7 +60,7 @@ class CallOnceOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, callOnceOptions):

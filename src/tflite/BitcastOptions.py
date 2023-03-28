@@ -6,46 +6,46 @@ import flatbuffers
 from flatbuffers.compat import import_numpy
 np = import_numpy()
 
-class GatherNdOptions(object):
+class BitcastOptions(object):
     __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, offset)
-        x = GatherNdOptions()
+        x = BitcastOptions()
         x.Init(buf, n + offset)
         return x
 
     @classmethod
-    def GetRootAsGatherNdOptions(cls, buf, offset=0):
+    def GetRootAsBitcastOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
     @classmethod
-    def GatherNdOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
+    def BitcastOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
         return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
-    # GatherNdOptions
+    # BitcastOptions
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
 
-def GatherNdOptionsStart(builder): builder.StartObject(0)
+def BitcastOptionsStart(builder): builder.StartObject(0)
 def Start(builder):
-    return GatherNdOptionsStart(builder)
-def GatherNdOptionsEnd(builder): return builder.EndObject()
+    return BitcastOptionsStart(builder)
+def BitcastOptionsEnd(builder): return builder.EndObject()
 def End(builder):
-    return GatherNdOptionsEnd(builder)
+    return BitcastOptionsEnd(builder)
 
-class GatherNdOptionsT(object):
+class BitcastOptionsT(object):
 
-    # GatherNdOptionsT
+    # BitcastOptionsT
     def __init__(self):
         pass
 
     @classmethod
     def InitFromBuf(cls, buf, pos):
-        gatherNdOptions = GatherNdOptions()
-        gatherNdOptions.Init(buf, pos)
-        return cls.InitFromObj(gatherNdOptions)
+        bitcastOptions = BitcastOptions()
+        bitcastOptions.Init(buf, pos)
+        return cls.InitFromObj(bitcastOptions)
 
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
@@ -53,18 +53,18 @@ class GatherNdOptionsT(object):
         return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
-    def InitFromObj(cls, gatherNdOptions):
-        x = GatherNdOptionsT()
-        x._UnPack(gatherNdOptions)
+    def InitFromObj(cls, bitcastOptions):
+        x = BitcastOptionsT()
+        x._UnPack(bitcastOptions)
         return x
 
-    # GatherNdOptionsT
-    def _UnPack(self, gatherNdOptions):
-        if gatherNdOptions is None:
+    # BitcastOptionsT
+    def _UnPack(self, bitcastOptions):
+        if bitcastOptions is None:
             return
 
-    # GatherNdOptionsT
+    # BitcastOptionsT
     def Pack(self, builder):
-        GatherNdOptionsStart(builder)
-        gatherNdOptions = GatherNdOptionsEnd(builder)
-        return gatherNdOptions
+        BitcastOptionsStart(builder)
+        bitcastOptions = BitcastOptionsEnd(builder)
+        return bitcastOptions
