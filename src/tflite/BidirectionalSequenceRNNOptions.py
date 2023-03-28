@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class BidirectionalSequenceRNNOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class BidirectionalSequenceRNNOptions(object):
     def GetRootAsBidirectionalSequenceRNNOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def BidirectionalSequenceRNNOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # BidirectionalSequenceRNNOptions
     def Init(self, buf, pos):
@@ -61,58 +56,24 @@ class BidirectionalSequenceRNNOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def BidirectionalSequenceRNNOptionsStart(builder):
-    builder.StartObject(4)
-
-
+def BidirectionalSequenceRNNOptionsStart(builder): builder.StartObject(4)
 def Start(builder):
     return BidirectionalSequenceRNNOptionsStart(builder)
-
-
-def BidirectionalSequenceRNNOptionsAddTimeMajor(builder, timeMajor):
-    builder.PrependBoolSlot(0, timeMajor, 0)
-
-
+def BidirectionalSequenceRNNOptionsAddTimeMajor(builder, timeMajor): builder.PrependBoolSlot(0, timeMajor, 0)
 def AddTimeMajor(builder, timeMajor):
     return BidirectionalSequenceRNNOptionsAddTimeMajor(builder, timeMajor)
-
-
-def BidirectionalSequenceRNNOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(1, fusedActivationFunction, 0)
-
-
+def BidirectionalSequenceRNNOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(1, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
-    return BidirectionalSequenceRNNOptionsAddFusedActivationFunction(
-        builder, fusedActivationFunction
-    )
-
-
-def BidirectionalSequenceRNNOptionsAddMergeOutputs(builder, mergeOutputs):
-    builder.PrependBoolSlot(2, mergeOutputs, 0)
-
-
+    return BidirectionalSequenceRNNOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
+def BidirectionalSequenceRNNOptionsAddMergeOutputs(builder, mergeOutputs): builder.PrependBoolSlot(2, mergeOutputs, 0)
 def AddMergeOutputs(builder, mergeOutputs):
     return BidirectionalSequenceRNNOptionsAddMergeOutputs(builder, mergeOutputs)
-
-
-def BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    builder.PrependBoolSlot(3, asymmetricQuantizeInputs, 0)
-
-
+def BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs): builder.PrependBoolSlot(3, asymmetricQuantizeInputs, 0)
 def AddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    return BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(
-        builder, asymmetricQuantizeInputs
-    )
-
-
-def BidirectionalSequenceRNNOptionsEnd(builder):
-    return builder.EndObject()
-
-
+    return BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs)
+def BidirectionalSequenceRNNOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return BidirectionalSequenceRNNOptionsEnd(builder)
-
 
 class BidirectionalSequenceRNNOptionsT(object):
 
@@ -132,7 +93,7 @@ class BidirectionalSequenceRNNOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, bidirectionalSequenceRnnoptions):
@@ -153,12 +114,8 @@ class BidirectionalSequenceRNNOptionsT(object):
     def Pack(self, builder):
         BidirectionalSequenceRNNOptionsStart(builder)
         BidirectionalSequenceRNNOptionsAddTimeMajor(builder, self.timeMajor)
-        BidirectionalSequenceRNNOptionsAddFusedActivationFunction(
-            builder, self.fusedActivationFunction
-        )
+        BidirectionalSequenceRNNOptionsAddFusedActivationFunction(builder, self.fusedActivationFunction)
         BidirectionalSequenceRNNOptionsAddMergeOutputs(builder, self.mergeOutputs)
-        BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(
-            builder, self.asymmetricQuantizeInputs
-        )
+        BidirectionalSequenceRNNOptionsAddAsymmetricQuantizeInputs(builder, self.asymmetricQuantizeInputs)
         bidirectionalSequenceRnnoptions = BidirectionalSequenceRNNOptionsEnd(builder)
         return bidirectionalSequenceRnnoptions

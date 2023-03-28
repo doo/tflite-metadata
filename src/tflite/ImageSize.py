@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ImageSize(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ImageSize(object):
     def GetRootAsImageSize(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ImageSizeBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # ImageSize
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class ImageSize(object):
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
-
-def ImageSizeStart(builder):
-    builder.StartObject(2)
-
-
+def ImageSizeStart(builder): builder.StartObject(2)
 def Start(builder):
     return ImageSizeStart(builder)
-
-
-def ImageSizeAddWidth(builder, width):
-    builder.PrependUint32Slot(0, width, 0)
-
-
+def ImageSizeAddWidth(builder, width): builder.PrependUint32Slot(0, width, 0)
 def AddWidth(builder, width):
     return ImageSizeAddWidth(builder, width)
-
-
-def ImageSizeAddHeight(builder, height):
-    builder.PrependUint32Slot(1, height, 0)
-
-
+def ImageSizeAddHeight(builder, height): builder.PrependUint32Slot(1, height, 0)
 def AddHeight(builder, height):
     return ImageSizeAddHeight(builder, height)
-
-
-def ImageSizeEnd(builder):
-    return builder.EndObject()
-
-
+def ImageSizeEnd(builder): return builder.EndObject()
 def End(builder):
     return ImageSizeEnd(builder)
-
 
 class ImageSizeT(object):
 
@@ -96,7 +71,7 @@ class ImageSizeT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, imageSize):

@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ResizeNearestNeighborOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ResizeNearestNeighborOptions(object):
     def GetRootAsResizeNearestNeighborOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ResizeNearestNeighborOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # ResizeNearestNeighborOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class ResizeNearestNeighborOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def ResizeNearestNeighborOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def ResizeNearestNeighborOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return ResizeNearestNeighborOptionsStart(builder)
-
-
-def ResizeNearestNeighborOptionsAddAlignCorners(builder, alignCorners):
-    builder.PrependBoolSlot(0, alignCorners, 0)
-
-
+def ResizeNearestNeighborOptionsAddAlignCorners(builder, alignCorners): builder.PrependBoolSlot(0, alignCorners, 0)
 def AddAlignCorners(builder, alignCorners):
     return ResizeNearestNeighborOptionsAddAlignCorners(builder, alignCorners)
-
-
-def ResizeNearestNeighborOptionsAddHalfPixelCenters(builder, halfPixelCenters):
-    builder.PrependBoolSlot(1, halfPixelCenters, 0)
-
-
+def ResizeNearestNeighborOptionsAddHalfPixelCenters(builder, halfPixelCenters): builder.PrependBoolSlot(1, halfPixelCenters, 0)
 def AddHalfPixelCenters(builder, halfPixelCenters):
     return ResizeNearestNeighborOptionsAddHalfPixelCenters(builder, halfPixelCenters)
-
-
-def ResizeNearestNeighborOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def ResizeNearestNeighborOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ResizeNearestNeighborOptionsEnd(builder)
-
 
 class ResizeNearestNeighborOptionsT(object):
 
@@ -96,7 +71,7 @@ class ResizeNearestNeighborOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, resizeNearestNeighborOptions):

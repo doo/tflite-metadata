@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ModelMetadata(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ModelMetadata(object):
     def GetRootAsModelMetadata(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ModelMetadataBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # ModelMetadata
     def Init(self, buf, pos):
@@ -62,7 +57,6 @@ class ModelMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.SubGraphMetadata import SubGraphMetadata
-
             obj = SubGraphMetadata()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -102,7 +96,6 @@ class ModelMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -127,125 +120,48 @@ class ModelMetadata(object):
             return self._tab.String(o + self._tab.Pos)
         return None
 
-
-def ModelMetadataStart(builder):
-    builder.StartObject(8)
-
-
+def ModelMetadataStart(builder): builder.StartObject(8)
 def Start(builder):
     return ModelMetadataStart(builder)
-
-
-def ModelMetadataAddName(builder, name):
-    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
-
-
+def ModelMetadataAddName(builder, name): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
 def AddName(builder, name):
     return ModelMetadataAddName(builder, name)
-
-
-def ModelMetadataAddDescription(builder, description):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0
-    )
-
-
+def ModelMetadataAddDescription(builder, description): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0)
 def AddDescription(builder, description):
     return ModelMetadataAddDescription(builder, description)
-
-
-def ModelMetadataAddVersion(builder, version):
-    builder.PrependUOffsetTRelativeSlot(
-        2, flatbuffers.number_types.UOffsetTFlags.py_type(version), 0
-    )
-
-
+def ModelMetadataAddVersion(builder, version): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(version), 0)
 def AddVersion(builder, version):
     return ModelMetadataAddVersion(builder, version)
-
-
-def ModelMetadataAddSubgraphMetadata(builder, subgraphMetadata):
-    builder.PrependUOffsetTRelativeSlot(
-        3, flatbuffers.number_types.UOffsetTFlags.py_type(subgraphMetadata), 0
-    )
-
-
+def ModelMetadataAddSubgraphMetadata(builder, subgraphMetadata): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(subgraphMetadata), 0)
 def AddSubgraphMetadata(builder, subgraphMetadata):
     return ModelMetadataAddSubgraphMetadata(builder, subgraphMetadata)
-
-
-def ModelMetadataStartSubgraphMetadataVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def ModelMetadataStartSubgraphMetadataVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartSubgraphMetadataVector(builder, numElems):
     return ModelMetadataStartSubgraphMetadataVector(builder, numElems)
-
-
-def ModelMetadataAddAuthor(builder, author):
-    builder.PrependUOffsetTRelativeSlot(
-        4, flatbuffers.number_types.UOffsetTFlags.py_type(author), 0
-    )
-
-
+def ModelMetadataAddAuthor(builder, author): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(author), 0)
 def AddAuthor(builder, author):
     return ModelMetadataAddAuthor(builder, author)
-
-
-def ModelMetadataAddLicense(builder, license):
-    builder.PrependUOffsetTRelativeSlot(
-        5, flatbuffers.number_types.UOffsetTFlags.py_type(license), 0
-    )
-
-
+def ModelMetadataAddLicense(builder, license): builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(license), 0)
 def AddLicense(builder, license):
     return ModelMetadataAddLicense(builder, license)
-
-
-def ModelMetadataAddAssociatedFiles(builder, associatedFiles):
-    builder.PrependUOffsetTRelativeSlot(
-        6, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0
-    )
-
-
+def ModelMetadataAddAssociatedFiles(builder, associatedFiles): builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0)
 def AddAssociatedFiles(builder, associatedFiles):
     return ModelMetadataAddAssociatedFiles(builder, associatedFiles)
-
-
-def ModelMetadataStartAssociatedFilesVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def ModelMetadataStartAssociatedFilesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartAssociatedFilesVector(builder, numElems):
     return ModelMetadataStartAssociatedFilesVector(builder, numElems)
-
-
-def ModelMetadataAddMinParserVersion(builder, minParserVersion):
-    builder.PrependUOffsetTRelativeSlot(
-        7, flatbuffers.number_types.UOffsetTFlags.py_type(minParserVersion), 0
-    )
-
-
+def ModelMetadataAddMinParserVersion(builder, minParserVersion): builder.PrependUOffsetTRelativeSlot(7, flatbuffers.number_types.UOffsetTFlags.py_type(minParserVersion), 0)
 def AddMinParserVersion(builder, minParserVersion):
     return ModelMetadataAddMinParserVersion(builder, minParserVersion)
-
-
-def ModelMetadataEnd(builder):
-    return builder.EndObject()
-
-
+def ModelMetadataEnd(builder): return builder.EndObject()
 def End(builder):
     return ModelMetadataEnd(builder)
-
-
 import tflite.AssociatedFile
 import tflite.SubGraphMetadata
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class ModelMetadataT(object):
 
@@ -269,7 +185,7 @@ class ModelMetadataT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, modelMetadata):
@@ -290,9 +206,7 @@ class ModelMetadataT(object):
                 if modelMetadata.SubgraphMetadata(i) is None:
                     self.subgraphMetadata.append(None)
                 else:
-                    subGraphMetadata_ = tflite.SubGraphMetadata.SubGraphMetadataT.InitFromObj(
-                        modelMetadata.SubgraphMetadata(i)
-                    )
+                    subGraphMetadata_ = tflite.SubGraphMetadata.SubGraphMetadataT.InitFromObj(modelMetadata.SubgraphMetadata(i))
                     self.subgraphMetadata.append(subGraphMetadata_)
         self.author = modelMetadata.Author()
         self.license = modelMetadata.License()
@@ -302,9 +216,7 @@ class ModelMetadataT(object):
                 if modelMetadata.AssociatedFiles(i) is None:
                     self.associatedFiles.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        modelMetadata.AssociatedFiles(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(modelMetadata.AssociatedFiles(i))
                     self.associatedFiles.append(associatedFile_)
         self.minParserVersion = modelMetadata.MinParserVersion()
 

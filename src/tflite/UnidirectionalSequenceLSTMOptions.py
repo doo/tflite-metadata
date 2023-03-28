@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class UnidirectionalSequenceLSTMOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class UnidirectionalSequenceLSTMOptions(object):
     def GetRootAsUnidirectionalSequenceLSTMOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def UnidirectionalSequenceLSTMOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # UnidirectionalSequenceLSTMOptions
     def Init(self, buf, pos):
@@ -75,76 +70,30 @@ class UnidirectionalSequenceLSTMOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def UnidirectionalSequenceLSTMOptionsStart(builder):
-    builder.StartObject(6)
-
-
+def UnidirectionalSequenceLSTMOptionsStart(builder): builder.StartObject(6)
 def Start(builder):
     return UnidirectionalSequenceLSTMOptionsStart(builder)
-
-
-def UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(0, fusedActivationFunction, 0)
-
-
+def UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(0, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
-    return UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(
-        builder, fusedActivationFunction
-    )
-
-
-def UnidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip):
-    builder.PrependFloat32Slot(1, cellClip, 0.0)
-
-
+    return UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
+def UnidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip): builder.PrependFloat32Slot(1, cellClip, 0.0)
 def AddCellClip(builder, cellClip):
     return UnidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip)
-
-
-def UnidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip):
-    builder.PrependFloat32Slot(2, projClip, 0.0)
-
-
+def UnidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip): builder.PrependFloat32Slot(2, projClip, 0.0)
 def AddProjClip(builder, projClip):
     return UnidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip)
-
-
-def UnidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor):
-    builder.PrependBoolSlot(3, timeMajor, 0)
-
-
+def UnidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor): builder.PrependBoolSlot(3, timeMajor, 0)
 def AddTimeMajor(builder, timeMajor):
     return UnidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor)
-
-
-def UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    builder.PrependBoolSlot(4, asymmetricQuantizeInputs, 0)
-
-
+def UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs): builder.PrependBoolSlot(4, asymmetricQuantizeInputs, 0)
 def AddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    return UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(
-        builder, asymmetricQuantizeInputs
-    )
-
-
-def UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(builder, diagonalRecurrentTensors):
-    builder.PrependBoolSlot(5, diagonalRecurrentTensors, 0)
-
-
+    return UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs)
+def UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(builder, diagonalRecurrentTensors): builder.PrependBoolSlot(5, diagonalRecurrentTensors, 0)
 def AddDiagonalRecurrentTensors(builder, diagonalRecurrentTensors):
-    return UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(
-        builder, diagonalRecurrentTensors
-    )
-
-
-def UnidirectionalSequenceLSTMOptionsEnd(builder):
-    return builder.EndObject()
-
-
+    return UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(builder, diagonalRecurrentTensors)
+def UnidirectionalSequenceLSTMOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return UnidirectionalSequenceLSTMOptionsEnd(builder)
-
 
 class UnidirectionalSequenceLSTMOptionsT(object):
 
@@ -166,7 +115,7 @@ class UnidirectionalSequenceLSTMOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, unidirectionalSequenceLstmoptions):
@@ -188,17 +137,11 @@ class UnidirectionalSequenceLSTMOptionsT(object):
     # UnidirectionalSequenceLSTMOptionsT
     def Pack(self, builder):
         UnidirectionalSequenceLSTMOptionsStart(builder)
-        UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(
-            builder, self.fusedActivationFunction
-        )
+        UnidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, self.fusedActivationFunction)
         UnidirectionalSequenceLSTMOptionsAddCellClip(builder, self.cellClip)
         UnidirectionalSequenceLSTMOptionsAddProjClip(builder, self.projClip)
         UnidirectionalSequenceLSTMOptionsAddTimeMajor(builder, self.timeMajor)
-        UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(
-            builder, self.asymmetricQuantizeInputs
-        )
-        UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(
-            builder, self.diagonalRecurrentTensors
-        )
+        UnidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, self.asymmetricQuantizeInputs)
+        UnidirectionalSequenceLSTMOptionsAddDiagonalRecurrentTensors(builder, self.diagonalRecurrentTensors)
         unidirectionalSequenceLstmoptions = UnidirectionalSequenceLSTMOptionsEnd(builder)
         return unidirectionalSequenceLstmoptions

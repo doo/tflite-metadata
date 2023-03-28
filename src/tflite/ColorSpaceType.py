@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class ColorSpaceType(object):
     UNKNOWN = 0
     RGB = 1

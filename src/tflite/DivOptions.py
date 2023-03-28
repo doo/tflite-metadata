@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class DivOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class DivOptions(object):
     def GetRootAsDivOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def DivOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # DivOptions
     def Init(self, buf, pos):
@@ -40,30 +35,15 @@ class DivOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int8Flags, o + self._tab.Pos)
         return 0
 
-
-def DivOptionsStart(builder):
-    builder.StartObject(1)
-
-
+def DivOptionsStart(builder): builder.StartObject(1)
 def Start(builder):
     return DivOptionsStart(builder)
-
-
-def DivOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(0, fusedActivationFunction, 0)
-
-
+def DivOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(0, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
     return DivOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
-
-
-def DivOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def DivOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return DivOptionsEnd(builder)
-
 
 class DivOptionsT(object):
 
@@ -80,7 +60,7 @@ class DivOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, divOptions):

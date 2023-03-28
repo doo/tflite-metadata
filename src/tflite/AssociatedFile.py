@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class AssociatedFile(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class AssociatedFile(object):
     def GetRootAsAssociatedFile(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def AssociatedFileBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # AssociatedFile
     def Init(self, buf, pos):
@@ -68,68 +63,27 @@ class AssociatedFile(object):
             return self._tab.String(o + self._tab.Pos)
         return None
 
-
-def AssociatedFileStart(builder):
-    builder.StartObject(5)
-
-
+def AssociatedFileStart(builder): builder.StartObject(5)
 def Start(builder):
     return AssociatedFileStart(builder)
-
-
-def AssociatedFileAddName(builder, name):
-    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
-
-
+def AssociatedFileAddName(builder, name): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
 def AddName(builder, name):
     return AssociatedFileAddName(builder, name)
-
-
-def AssociatedFileAddDescription(builder, description):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0
-    )
-
-
+def AssociatedFileAddDescription(builder, description): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0)
 def AddDescription(builder, description):
     return AssociatedFileAddDescription(builder, description)
-
-
-def AssociatedFileAddType(builder, type):
-    builder.PrependInt8Slot(2, type, 0)
-
-
+def AssociatedFileAddType(builder, type): builder.PrependInt8Slot(2, type, 0)
 def AddType(builder, type):
     return AssociatedFileAddType(builder, type)
-
-
-def AssociatedFileAddLocale(builder, locale):
-    builder.PrependUOffsetTRelativeSlot(
-        3, flatbuffers.number_types.UOffsetTFlags.py_type(locale), 0
-    )
-
-
+def AssociatedFileAddLocale(builder, locale): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(locale), 0)
 def AddLocale(builder, locale):
     return AssociatedFileAddLocale(builder, locale)
-
-
-def AssociatedFileAddVersion(builder, version):
-    builder.PrependUOffsetTRelativeSlot(
-        4, flatbuffers.number_types.UOffsetTFlags.py_type(version), 0
-    )
-
-
+def AssociatedFileAddVersion(builder, version): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(version), 0)
 def AddVersion(builder, version):
     return AssociatedFileAddVersion(builder, version)
-
-
-def AssociatedFileEnd(builder):
-    return builder.EndObject()
-
-
+def AssociatedFileEnd(builder): return builder.EndObject()
 def End(builder):
     return AssociatedFileEnd(builder)
-
 
 class AssociatedFileT(object):
 
@@ -150,7 +104,7 @@ class AssociatedFileT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, associatedFile):

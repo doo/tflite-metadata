@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class NormalizationOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class NormalizationOptions(object):
     def GetRootAsNormalizationOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def NormalizationOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # NormalizationOptions
     def Init(self, buf, pos):
@@ -38,10 +33,7 @@ class NormalizationOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Float32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # NormalizationOptions
@@ -68,10 +60,7 @@ class NormalizationOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Float32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Float32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # NormalizationOptions
@@ -93,60 +82,28 @@ class NormalizationOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
-
-def NormalizationOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def NormalizationOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return NormalizationOptionsStart(builder)
-
-
-def NormalizationOptionsAddMean(builder, mean):
-    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(mean), 0)
-
-
+def NormalizationOptionsAddMean(builder, mean): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(mean), 0)
 def AddMean(builder, mean):
     return NormalizationOptionsAddMean(builder, mean)
-
-
-def NormalizationOptionsStartMeanVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def NormalizationOptionsStartMeanVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartMeanVector(builder, numElems):
     return NormalizationOptionsStartMeanVector(builder, numElems)
-
-
-def NormalizationOptionsAddStd(builder, std):
-    builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(std), 0)
-
-
+def NormalizationOptionsAddStd(builder, std): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(std), 0)
 def AddStd(builder, std):
     return NormalizationOptionsAddStd(builder, std)
-
-
-def NormalizationOptionsStartStdVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def NormalizationOptionsStartStdVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartStdVector(builder, numElems):
     return NormalizationOptionsStartStdVector(builder, numElems)
-
-
-def NormalizationOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def NormalizationOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return NormalizationOptionsEnd(builder)
-
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class NormalizationOptionsT(object):
 
@@ -164,7 +121,7 @@ class NormalizationOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, normalizationOptions):

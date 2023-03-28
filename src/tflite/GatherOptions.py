@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class GatherOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class GatherOptions(object):
     def GetRootAsGatherOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def GatherOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # GatherOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class GatherOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int32Flags, o + self._tab.Pos)
         return 0
 
-
-def GatherOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def GatherOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return GatherOptionsStart(builder)
-
-
-def GatherOptionsAddAxis(builder, axis):
-    builder.PrependInt32Slot(0, axis, 0)
-
-
+def GatherOptionsAddAxis(builder, axis): builder.PrependInt32Slot(0, axis, 0)
 def AddAxis(builder, axis):
     return GatherOptionsAddAxis(builder, axis)
-
-
-def GatherOptionsAddBatchDims(builder, batchDims):
-    builder.PrependInt32Slot(1, batchDims, 0)
-
-
+def GatherOptionsAddBatchDims(builder, batchDims): builder.PrependInt32Slot(1, batchDims, 0)
 def AddBatchDims(builder, batchDims):
     return GatherOptionsAddBatchDims(builder, batchDims)
-
-
-def GatherOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def GatherOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return GatherOptionsEnd(builder)
-
 
 class GatherOptionsT(object):
 
@@ -96,7 +71,7 @@ class GatherOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, gatherOptions):

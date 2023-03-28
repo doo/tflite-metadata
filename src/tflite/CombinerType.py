@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class CombinerType(object):
     SUM = 0
     MEAN = 1

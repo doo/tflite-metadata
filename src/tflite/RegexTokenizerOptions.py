@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class RegexTokenizerOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class RegexTokenizerOptions(object):
     def GetRootAsRegexTokenizerOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def RegexTokenizerOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # RegexTokenizerOptions
     def Init(self, buf, pos):
@@ -48,7 +43,6 @@ class RegexTokenizerOptions(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -66,58 +60,26 @@ class RegexTokenizerOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
-
-def RegexTokenizerOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def RegexTokenizerOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return RegexTokenizerOptionsStart(builder)
-
-
-def RegexTokenizerOptionsAddDelimRegexPattern(builder, delimRegexPattern):
-    builder.PrependUOffsetTRelativeSlot(
-        0, flatbuffers.number_types.UOffsetTFlags.py_type(delimRegexPattern), 0
-    )
-
-
+def RegexTokenizerOptionsAddDelimRegexPattern(builder, delimRegexPattern): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(delimRegexPattern), 0)
 def AddDelimRegexPattern(builder, delimRegexPattern):
     return RegexTokenizerOptionsAddDelimRegexPattern(builder, delimRegexPattern)
-
-
-def RegexTokenizerOptionsAddVocabFile(builder, vocabFile):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(vocabFile), 0
-    )
-
-
+def RegexTokenizerOptionsAddVocabFile(builder, vocabFile): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(vocabFile), 0)
 def AddVocabFile(builder, vocabFile):
     return RegexTokenizerOptionsAddVocabFile(builder, vocabFile)
-
-
-def RegexTokenizerOptionsStartVocabFileVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def RegexTokenizerOptionsStartVocabFileVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartVocabFileVector(builder, numElems):
     return RegexTokenizerOptionsStartVocabFileVector(builder, numElems)
-
-
-def RegexTokenizerOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def RegexTokenizerOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return RegexTokenizerOptionsEnd(builder)
-
-
 import tflite.AssociatedFile
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class RegexTokenizerOptionsT(object):
 
@@ -135,7 +97,7 @@ class RegexTokenizerOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, regexTokenizerOptions):
@@ -154,9 +116,7 @@ class RegexTokenizerOptionsT(object):
                 if regexTokenizerOptions.VocabFile(i) is None:
                     self.vocabFile.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        regexTokenizerOptions.VocabFile(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(regexTokenizerOptions.VocabFile(i))
                     self.vocabFile.append(associatedFile_)
 
     # RegexTokenizerOptionsT

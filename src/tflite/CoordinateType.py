@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class CoordinateType(object):
     RATIO = 0
     PIXEL = 1

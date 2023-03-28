@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class SVDFOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class SVDFOptions(object):
     def GetRootAsSVDFOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def SVDFOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # SVDFOptions
     def Init(self, buf, pos):
@@ -54,46 +49,21 @@ class SVDFOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def SVDFOptionsStart(builder):
-    builder.StartObject(3)
-
-
+def SVDFOptionsStart(builder): builder.StartObject(3)
 def Start(builder):
     return SVDFOptionsStart(builder)
-
-
-def SVDFOptionsAddRank(builder, rank):
-    builder.PrependInt32Slot(0, rank, 0)
-
-
+def SVDFOptionsAddRank(builder, rank): builder.PrependInt32Slot(0, rank, 0)
 def AddRank(builder, rank):
     return SVDFOptionsAddRank(builder, rank)
-
-
-def SVDFOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(1, fusedActivationFunction, 0)
-
-
+def SVDFOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(1, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
     return SVDFOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
-
-
-def SVDFOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    builder.PrependBoolSlot(2, asymmetricQuantizeInputs, 0)
-
-
+def SVDFOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs): builder.PrependBoolSlot(2, asymmetricQuantizeInputs, 0)
 def AddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
     return SVDFOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs)
-
-
-def SVDFOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def SVDFOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return SVDFOptionsEnd(builder)
-
 
 class SVDFOptionsT(object):
 
@@ -112,7 +82,7 @@ class SVDFOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, svdfoptions):

@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class BidirectionalSequenceLSTMOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class BidirectionalSequenceLSTMOptions(object):
     def GetRootAsBidirectionalSequenceLSTMOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def BidirectionalSequenceLSTMOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # BidirectionalSequenceLSTMOptions
     def Init(self, buf, pos):
@@ -75,74 +70,30 @@ class BidirectionalSequenceLSTMOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def BidirectionalSequenceLSTMOptionsStart(builder):
-    builder.StartObject(6)
-
-
+def BidirectionalSequenceLSTMOptionsStart(builder): builder.StartObject(6)
 def Start(builder):
     return BidirectionalSequenceLSTMOptionsStart(builder)
-
-
-def BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(0, fusedActivationFunction, 0)
-
-
+def BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(0, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
-    return BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(
-        builder, fusedActivationFunction
-    )
-
-
-def BidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip):
-    builder.PrependFloat32Slot(1, cellClip, 0.0)
-
-
+    return BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
+def BidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip): builder.PrependFloat32Slot(1, cellClip, 0.0)
 def AddCellClip(builder, cellClip):
     return BidirectionalSequenceLSTMOptionsAddCellClip(builder, cellClip)
-
-
-def BidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip):
-    builder.PrependFloat32Slot(2, projClip, 0.0)
-
-
+def BidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip): builder.PrependFloat32Slot(2, projClip, 0.0)
 def AddProjClip(builder, projClip):
     return BidirectionalSequenceLSTMOptionsAddProjClip(builder, projClip)
-
-
-def BidirectionalSequenceLSTMOptionsAddMergeOutputs(builder, mergeOutputs):
-    builder.PrependBoolSlot(3, mergeOutputs, 0)
-
-
+def BidirectionalSequenceLSTMOptionsAddMergeOutputs(builder, mergeOutputs): builder.PrependBoolSlot(3, mergeOutputs, 0)
 def AddMergeOutputs(builder, mergeOutputs):
     return BidirectionalSequenceLSTMOptionsAddMergeOutputs(builder, mergeOutputs)
-
-
-def BidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor):
-    builder.PrependBoolSlot(4, timeMajor, 1)
-
-
+def BidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor): builder.PrependBoolSlot(4, timeMajor, 1)
 def AddTimeMajor(builder, timeMajor):
     return BidirectionalSequenceLSTMOptionsAddTimeMajor(builder, timeMajor)
-
-
-def BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    builder.PrependBoolSlot(5, asymmetricQuantizeInputs, 0)
-
-
+def BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs): builder.PrependBoolSlot(5, asymmetricQuantizeInputs, 0)
 def AddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    return BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(
-        builder, asymmetricQuantizeInputs
-    )
-
-
-def BidirectionalSequenceLSTMOptionsEnd(builder):
-    return builder.EndObject()
-
-
+    return BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs)
+def BidirectionalSequenceLSTMOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return BidirectionalSequenceLSTMOptionsEnd(builder)
-
 
 class BidirectionalSequenceLSTMOptionsT(object):
 
@@ -164,7 +115,7 @@ class BidirectionalSequenceLSTMOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, bidirectionalSequenceLstmoptions):
@@ -186,15 +137,11 @@ class BidirectionalSequenceLSTMOptionsT(object):
     # BidirectionalSequenceLSTMOptionsT
     def Pack(self, builder):
         BidirectionalSequenceLSTMOptionsStart(builder)
-        BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(
-            builder, self.fusedActivationFunction
-        )
+        BidirectionalSequenceLSTMOptionsAddFusedActivationFunction(builder, self.fusedActivationFunction)
         BidirectionalSequenceLSTMOptionsAddCellClip(builder, self.cellClip)
         BidirectionalSequenceLSTMOptionsAddProjClip(builder, self.projClip)
         BidirectionalSequenceLSTMOptionsAddMergeOutputs(builder, self.mergeOutputs)
         BidirectionalSequenceLSTMOptionsAddTimeMajor(builder, self.timeMajor)
-        BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(
-            builder, self.asymmetricQuantizeInputs
-        )
+        BidirectionalSequenceLSTMOptionsAddAsymmetricQuantizeInputs(builder, self.asymmetricQuantizeInputs)
         bidirectionalSequenceLstmoptions = BidirectionalSequenceLSTMOptionsEnd(builder)
         return bidirectionalSequenceLstmoptions

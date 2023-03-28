@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class LSHProjectionType(object):
     UNKNOWN = 0
     SPARSE = 1

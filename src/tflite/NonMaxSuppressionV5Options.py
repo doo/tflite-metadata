@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class NonMaxSuppressionV5Options(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,33 +20,20 @@ class NonMaxSuppressionV5Options(object):
     def GetRootAsNonMaxSuppressionV5Options(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def NonMaxSuppressionV5OptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # NonMaxSuppressionV5Options
     def Init(self, buf, pos):
         self._tab = flatbuffers.table.Table(buf, pos)
 
-
-def NonMaxSuppressionV5OptionsStart(builder):
-    builder.StartObject(0)
-
-
+def NonMaxSuppressionV5OptionsStart(builder): builder.StartObject(0)
 def Start(builder):
     return NonMaxSuppressionV5OptionsStart(builder)
-
-
-def NonMaxSuppressionV5OptionsEnd(builder):
-    return builder.EndObject()
-
-
+def NonMaxSuppressionV5OptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return NonMaxSuppressionV5OptionsEnd(builder)
-
 
 class NonMaxSuppressionV5OptionsT(object):
 
@@ -65,7 +50,7 @@ class NonMaxSuppressionV5OptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, nonMaxSuppressionV5Options):

@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class WhileOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class WhileOptions(object):
     def GetRootAsWhileOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def WhileOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # WhileOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class WhileOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int32Flags, o + self._tab.Pos)
         return 0
 
-
-def WhileOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def WhileOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return WhileOptionsStart(builder)
-
-
-def WhileOptionsAddCondSubgraphIndex(builder, condSubgraphIndex):
-    builder.PrependInt32Slot(0, condSubgraphIndex, 0)
-
-
+def WhileOptionsAddCondSubgraphIndex(builder, condSubgraphIndex): builder.PrependInt32Slot(0, condSubgraphIndex, 0)
 def AddCondSubgraphIndex(builder, condSubgraphIndex):
     return WhileOptionsAddCondSubgraphIndex(builder, condSubgraphIndex)
-
-
-def WhileOptionsAddBodySubgraphIndex(builder, bodySubgraphIndex):
-    builder.PrependInt32Slot(1, bodySubgraphIndex, 0)
-
-
+def WhileOptionsAddBodySubgraphIndex(builder, bodySubgraphIndex): builder.PrependInt32Slot(1, bodySubgraphIndex, 0)
 def AddBodySubgraphIndex(builder, bodySubgraphIndex):
     return WhileOptionsAddBodySubgraphIndex(builder, bodySubgraphIndex)
-
-
-def WhileOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def WhileOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return WhileOptionsEnd(builder)
-
 
 class WhileOptionsT(object):
 
@@ -96,7 +71,7 @@ class WhileOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, whileOptions):

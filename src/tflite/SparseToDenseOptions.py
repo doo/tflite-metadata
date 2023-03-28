@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class SparseToDenseOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class SparseToDenseOptions(object):
     def GetRootAsSparseToDenseOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def SparseToDenseOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # SparseToDenseOptions
     def Init(self, buf, pos):
@@ -40,30 +35,15 @@ class SparseToDenseOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def SparseToDenseOptionsStart(builder):
-    builder.StartObject(1)
-
-
+def SparseToDenseOptionsStart(builder): builder.StartObject(1)
 def Start(builder):
     return SparseToDenseOptionsStart(builder)
-
-
-def SparseToDenseOptionsAddValidateIndices(builder, validateIndices):
-    builder.PrependBoolSlot(0, validateIndices, 0)
-
-
+def SparseToDenseOptionsAddValidateIndices(builder, validateIndices): builder.PrependBoolSlot(0, validateIndices, 0)
 def AddValidateIndices(builder, validateIndices):
     return SparseToDenseOptionsAddValidateIndices(builder, validateIndices)
-
-
-def SparseToDenseOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def SparseToDenseOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return SparseToDenseOptionsEnd(builder)
-
 
 class SparseToDenseOptionsT(object):
 
@@ -80,7 +60,7 @@ class SparseToDenseOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, sparseToDenseOptions):

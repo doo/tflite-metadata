@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class TensorMetadata(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class TensorMetadata(object):
     def GetRootAsTensorMetadata(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def TensorMetadataBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # TensorMetadata
     def Init(self, buf, pos):
@@ -73,7 +68,6 @@ class TensorMetadata(object):
         if o != 0:
             x = self._tab.Indirect(o + self._tab.Pos)
             from tflite.Content import Content
-
             obj = Content()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -87,7 +81,6 @@ class TensorMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.ProcessUnit import ProcessUnit
-
             obj = ProcessUnit()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -111,7 +104,6 @@ class TensorMetadata(object):
         if o != 0:
             x = self._tab.Indirect(o + self._tab.Pos)
             from tflite.Stats import Stats
-
             obj = Stats()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -125,7 +117,6 @@ class TensorMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -143,123 +134,50 @@ class TensorMetadata(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
         return o == 0
 
-
-def TensorMetadataStart(builder):
-    builder.StartObject(7)
-
-
+def TensorMetadataStart(builder): builder.StartObject(7)
 def Start(builder):
     return TensorMetadataStart(builder)
-
-
-def TensorMetadataAddName(builder, name):
-    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
-
-
+def TensorMetadataAddName(builder, name): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
 def AddName(builder, name):
     return TensorMetadataAddName(builder, name)
-
-
-def TensorMetadataAddDescription(builder, description):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0
-    )
-
-
+def TensorMetadataAddDescription(builder, description): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0)
 def AddDescription(builder, description):
     return TensorMetadataAddDescription(builder, description)
-
-
-def TensorMetadataAddDimensionNames(builder, dimensionNames):
-    builder.PrependUOffsetTRelativeSlot(
-        2, flatbuffers.number_types.UOffsetTFlags.py_type(dimensionNames), 0
-    )
-
-
+def TensorMetadataAddDimensionNames(builder, dimensionNames): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(dimensionNames), 0)
 def AddDimensionNames(builder, dimensionNames):
     return TensorMetadataAddDimensionNames(builder, dimensionNames)
-
-
-def TensorMetadataStartDimensionNamesVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def TensorMetadataStartDimensionNamesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartDimensionNamesVector(builder, numElems):
     return TensorMetadataStartDimensionNamesVector(builder, numElems)
-
-
-def TensorMetadataAddContent(builder, content):
-    builder.PrependUOffsetTRelativeSlot(
-        3, flatbuffers.number_types.UOffsetTFlags.py_type(content), 0
-    )
-
-
+def TensorMetadataAddContent(builder, content): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(content), 0)
 def AddContent(builder, content):
     return TensorMetadataAddContent(builder, content)
-
-
-def TensorMetadataAddProcessUnits(builder, processUnits):
-    builder.PrependUOffsetTRelativeSlot(
-        4, flatbuffers.number_types.UOffsetTFlags.py_type(processUnits), 0
-    )
-
-
+def TensorMetadataAddProcessUnits(builder, processUnits): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(processUnits), 0)
 def AddProcessUnits(builder, processUnits):
     return TensorMetadataAddProcessUnits(builder, processUnits)
-
-
-def TensorMetadataStartProcessUnitsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def TensorMetadataStartProcessUnitsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartProcessUnitsVector(builder, numElems):
     return TensorMetadataStartProcessUnitsVector(builder, numElems)
-
-
-def TensorMetadataAddStats(builder, stats):
-    builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(stats), 0)
-
-
+def TensorMetadataAddStats(builder, stats): builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(stats), 0)
 def AddStats(builder, stats):
     return TensorMetadataAddStats(builder, stats)
-
-
-def TensorMetadataAddAssociatedFiles(builder, associatedFiles):
-    builder.PrependUOffsetTRelativeSlot(
-        6, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0
-    )
-
-
+def TensorMetadataAddAssociatedFiles(builder, associatedFiles): builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0)
 def AddAssociatedFiles(builder, associatedFiles):
     return TensorMetadataAddAssociatedFiles(builder, associatedFiles)
-
-
-def TensorMetadataStartAssociatedFilesVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def TensorMetadataStartAssociatedFilesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartAssociatedFilesVector(builder, numElems):
     return TensorMetadataStartAssociatedFilesVector(builder, numElems)
-
-
-def TensorMetadataEnd(builder):
-    return builder.EndObject()
-
-
+def TensorMetadataEnd(builder): return builder.EndObject()
 def End(builder):
     return TensorMetadataEnd(builder)
-
-
 import tflite.AssociatedFile
 import tflite.Content
 import tflite.ProcessUnit
 import tflite.Stats
-
 try:
-    pass
+    from typing import List, Optional
 except:
     pass
-
 
 class TensorMetadataT(object):
 
@@ -282,7 +200,7 @@ class TensorMetadataT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, tensorMetadata):
@@ -308,9 +226,7 @@ class TensorMetadataT(object):
                 if tensorMetadata.ProcessUnits(i) is None:
                     self.processUnits.append(None)
                 else:
-                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(
-                        tensorMetadata.ProcessUnits(i)
-                    )
+                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(tensorMetadata.ProcessUnits(i))
                     self.processUnits.append(processUnit_)
         if tensorMetadata.Stats() is not None:
             self.stats = tflite.Stats.StatsT.InitFromObj(tensorMetadata.Stats())
@@ -320,9 +236,7 @@ class TensorMetadataT(object):
                 if tensorMetadata.AssociatedFiles(i) is None:
                     self.associatedFiles.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        tensorMetadata.AssociatedFiles(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(tensorMetadata.AssociatedFiles(i))
                     self.associatedFiles.append(associatedFile_)
 
     # TensorMetadataT

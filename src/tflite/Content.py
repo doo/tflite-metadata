@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class Content(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class Content(object):
     def GetRootAsContent(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ContentBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # Content
     def Init(self, buf, pos):
@@ -45,7 +40,6 @@ class Content(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             from flatbuffers.table import Table
-
             obj = Table(bytearray(), 0)
             self._tab.Union(obj, o)
             return obj
@@ -57,76 +51,43 @@ class Content(object):
         if o != 0:
             x = self._tab.Indirect(o + self._tab.Pos)
             from tflite.ValueRange import ValueRange
-
             obj = ValueRange()
             obj.Init(self._tab.Bytes, x)
             return obj
         return None
 
-
-def ContentStart(builder):
-    builder.StartObject(3)
-
-
+def ContentStart(builder): builder.StartObject(3)
 def Start(builder):
     return ContentStart(builder)
-
-
-def ContentAddContentPropertiesType(builder, contentPropertiesType):
-    builder.PrependUint8Slot(0, contentPropertiesType, 0)
-
-
+def ContentAddContentPropertiesType(builder, contentPropertiesType): builder.PrependUint8Slot(0, contentPropertiesType, 0)
 def AddContentPropertiesType(builder, contentPropertiesType):
     return ContentAddContentPropertiesType(builder, contentPropertiesType)
-
-
-def ContentAddContentProperties(builder, contentProperties):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(contentProperties), 0
-    )
-
-
+def ContentAddContentProperties(builder, contentProperties): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(contentProperties), 0)
 def AddContentProperties(builder, contentProperties):
     return ContentAddContentProperties(builder, contentProperties)
-
-
-def ContentAddRange(builder, range):
-    builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(range), 0)
-
-
+def ContentAddRange(builder, range): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(range), 0)
 def AddRange(builder, range):
     return ContentAddRange(builder, range)
-
-
-def ContentEnd(builder):
-    return builder.EndObject()
-
-
+def ContentEnd(builder): return builder.EndObject()
 def End(builder):
     return ContentEnd(builder)
-
-
 import tflite.AudioProperties
 import tflite.BoundingBoxProperties
 import tflite.ContentProperties
 import tflite.FeatureProperties
 import tflite.ImageProperties
 import tflite.ValueRange
-
 try:
-    pass
+    from typing import Optional, Union
 except:
     pass
-
 
 class ContentT(object):
 
     # ContentT
     def __init__(self):
         self.contentPropertiesType = 0  # type: int
-        self.contentProperties = (
-            None
-        )  # type: Union[None, tflite.FeatureProperties.FeaturePropertiesT, tflite.ImageProperties.ImagePropertiesT, tflite.BoundingBoxProperties.BoundingBoxPropertiesT, tflite.AudioProperties.AudioPropertiesT]
+        self.contentProperties = None  # type: Union[None, tflite.FeatureProperties.FeaturePropertiesT, tflite.ImageProperties.ImagePropertiesT, tflite.BoundingBoxProperties.BoundingBoxPropertiesT, tflite.AudioProperties.AudioPropertiesT]
         self.range = None  # type: Optional[tflite.ValueRange.ValueRangeT]
 
     @classmethod
@@ -138,7 +99,7 @@ class ContentT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, content):
@@ -151,9 +112,7 @@ class ContentT(object):
         if content is None:
             return
         self.contentPropertiesType = content.ContentPropertiesType()
-        self.contentProperties = tflite.ContentProperties.ContentPropertiesCreator(
-            self.contentPropertiesType, content.ContentProperties()
-        )
+        self.contentProperties = tflite.ContentProperties.ContentPropertiesCreator(self.contentPropertiesType, content.ContentProperties())
         if content.Range() is not None:
             self.range = tflite.ValueRange.ValueRangeT.InitFromObj(content.Range())
 
