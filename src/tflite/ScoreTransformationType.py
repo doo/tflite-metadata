@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class ScoreTransformationType(object):
     IDENTITY = 0
     LOG = 1

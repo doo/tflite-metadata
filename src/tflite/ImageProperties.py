@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ImageProperties(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ImageProperties(object):
     def GetRootAsImageProperties(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ImagePropertiesBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # ImageProperties
     def Init(self, buf, pos):
@@ -46,54 +41,28 @@ class ImageProperties(object):
         if o != 0:
             x = self._tab.Indirect(o + self._tab.Pos)
             from tflite.ImageSize import ImageSize
-
             obj = ImageSize()
             obj.Init(self._tab.Bytes, x)
             return obj
         return None
 
-
-def ImagePropertiesStart(builder):
-    builder.StartObject(2)
-
-
+def ImagePropertiesStart(builder): builder.StartObject(2)
 def Start(builder):
     return ImagePropertiesStart(builder)
-
-
-def ImagePropertiesAddColorSpace(builder, colorSpace):
-    builder.PrependInt8Slot(0, colorSpace, 0)
-
-
+def ImagePropertiesAddColorSpace(builder, colorSpace): builder.PrependInt8Slot(0, colorSpace, 0)
 def AddColorSpace(builder, colorSpace):
     return ImagePropertiesAddColorSpace(builder, colorSpace)
-
-
-def ImagePropertiesAddDefaultSize(builder, defaultSize):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(defaultSize), 0
-    )
-
-
+def ImagePropertiesAddDefaultSize(builder, defaultSize): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(defaultSize), 0)
 def AddDefaultSize(builder, defaultSize):
     return ImagePropertiesAddDefaultSize(builder, defaultSize)
-
-
-def ImagePropertiesEnd(builder):
-    return builder.EndObject()
-
-
+def ImagePropertiesEnd(builder): return builder.EndObject()
 def End(builder):
     return ImagePropertiesEnd(builder)
-
-
 import tflite.ImageSize
-
 try:
-    pass
+    from typing import Optional
 except:
     pass
-
 
 class ImagePropertiesT(object):
 
@@ -111,7 +80,7 @@ class ImagePropertiesT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, imageProperties):
@@ -125,9 +94,7 @@ class ImagePropertiesT(object):
             return
         self.colorSpace = imageProperties.ColorSpace()
         if imageProperties.DefaultSize() is not None:
-            self.defaultSize = tflite.ImageSize.ImageSizeT.InitFromObj(
-                imageProperties.DefaultSize()
-            )
+            self.defaultSize = tflite.ImageSize.ImageSizeT.InitFromObj(imageProperties.DefaultSize())
 
     # ImagePropertiesT
     def Pack(self, builder):

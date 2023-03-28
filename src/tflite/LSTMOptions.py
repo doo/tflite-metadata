@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class LSTMOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class LSTMOptions(object):
     def GetRootAsLSTMOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def LSTMOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # LSTMOptions
     def Init(self, buf, pos):
@@ -68,62 +63,27 @@ class LSTMOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def LSTMOptionsStart(builder):
-    builder.StartObject(5)
-
-
+def LSTMOptionsStart(builder): builder.StartObject(5)
 def Start(builder):
     return LSTMOptionsStart(builder)
-
-
-def LSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction):
-    builder.PrependInt8Slot(0, fusedActivationFunction, 0)
-
-
+def LSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction): builder.PrependInt8Slot(0, fusedActivationFunction, 0)
 def AddFusedActivationFunction(builder, fusedActivationFunction):
     return LSTMOptionsAddFusedActivationFunction(builder, fusedActivationFunction)
-
-
-def LSTMOptionsAddCellClip(builder, cellClip):
-    builder.PrependFloat32Slot(1, cellClip, 0.0)
-
-
+def LSTMOptionsAddCellClip(builder, cellClip): builder.PrependFloat32Slot(1, cellClip, 0.0)
 def AddCellClip(builder, cellClip):
     return LSTMOptionsAddCellClip(builder, cellClip)
-
-
-def LSTMOptionsAddProjClip(builder, projClip):
-    builder.PrependFloat32Slot(2, projClip, 0.0)
-
-
+def LSTMOptionsAddProjClip(builder, projClip): builder.PrependFloat32Slot(2, projClip, 0.0)
 def AddProjClip(builder, projClip):
     return LSTMOptionsAddProjClip(builder, projClip)
-
-
-def LSTMOptionsAddKernelType(builder, kernelType):
-    builder.PrependInt8Slot(3, kernelType, 0)
-
-
+def LSTMOptionsAddKernelType(builder, kernelType): builder.PrependInt8Slot(3, kernelType, 0)
 def AddKernelType(builder, kernelType):
     return LSTMOptionsAddKernelType(builder, kernelType)
-
-
-def LSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
-    builder.PrependBoolSlot(4, asymmetricQuantizeInputs, 0)
-
-
+def LSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs): builder.PrependBoolSlot(4, asymmetricQuantizeInputs, 0)
 def AddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs):
     return LSTMOptionsAddAsymmetricQuantizeInputs(builder, asymmetricQuantizeInputs)
-
-
-def LSTMOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def LSTMOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return LSTMOptionsEnd(builder)
-
 
 class LSTMOptionsT(object):
 
@@ -144,7 +104,7 @@ class LSTMOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, lstmoptions):

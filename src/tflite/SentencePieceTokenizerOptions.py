@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class SentencePieceTokenizerOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class SentencePieceTokenizerOptions(object):
     def GetRootAsSentencePieceTokenizerOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def SentencePieceTokenizerOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # SentencePieceTokenizerOptions
     def Init(self, buf, pos):
@@ -41,7 +36,6 @@ class SentencePieceTokenizerOptions(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -67,7 +61,6 @@ class SentencePieceTokenizerOptions(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -85,66 +78,29 @@ class SentencePieceTokenizerOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         return o == 0
 
-
-def SentencePieceTokenizerOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def SentencePieceTokenizerOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return SentencePieceTokenizerOptionsStart(builder)
-
-
-def SentencePieceTokenizerOptionsAddSentencePieceModel(builder, sentencePieceModel):
-    builder.PrependUOffsetTRelativeSlot(
-        0, flatbuffers.number_types.UOffsetTFlags.py_type(sentencePieceModel), 0
-    )
-
-
+def SentencePieceTokenizerOptionsAddSentencePieceModel(builder, sentencePieceModel): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(sentencePieceModel), 0)
 def AddSentencePieceModel(builder, sentencePieceModel):
     return SentencePieceTokenizerOptionsAddSentencePieceModel(builder, sentencePieceModel)
-
-
-def SentencePieceTokenizerOptionsStartSentencePieceModelVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SentencePieceTokenizerOptionsStartSentencePieceModelVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartSentencePieceModelVector(builder, numElems):
     return SentencePieceTokenizerOptionsStartSentencePieceModelVector(builder, numElems)
-
-
-def SentencePieceTokenizerOptionsAddVocabFile(builder, vocabFile):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(vocabFile), 0
-    )
-
-
+def SentencePieceTokenizerOptionsAddVocabFile(builder, vocabFile): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(vocabFile), 0)
 def AddVocabFile(builder, vocabFile):
     return SentencePieceTokenizerOptionsAddVocabFile(builder, vocabFile)
-
-
-def SentencePieceTokenizerOptionsStartVocabFileVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SentencePieceTokenizerOptionsStartVocabFileVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartVocabFileVector(builder, numElems):
     return SentencePieceTokenizerOptionsStartVocabFileVector(builder, numElems)
-
-
-def SentencePieceTokenizerOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def SentencePieceTokenizerOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return SentencePieceTokenizerOptionsEnd(builder)
-
-
 import tflite.AssociatedFile
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class SentencePieceTokenizerOptionsT(object):
 
@@ -162,7 +118,7 @@ class SentencePieceTokenizerOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, sentencePieceTokenizerOptions):
@@ -180,9 +136,7 @@ class SentencePieceTokenizerOptionsT(object):
                 if sentencePieceTokenizerOptions.SentencePieceModel(i) is None:
                     self.sentencePieceModel.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        sentencePieceTokenizerOptions.SentencePieceModel(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(sentencePieceTokenizerOptions.SentencePieceModel(i))
                     self.sentencePieceModel.append(associatedFile_)
         if not sentencePieceTokenizerOptions.VocabFileIsNone():
             self.vocabFile = []
@@ -190,9 +144,7 @@ class SentencePieceTokenizerOptionsT(object):
                 if sentencePieceTokenizerOptions.VocabFile(i) is None:
                     self.vocabFile.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        sentencePieceTokenizerOptions.VocabFile(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(sentencePieceTokenizerOptions.VocabFile(i))
                     self.vocabFile.append(associatedFile_)
 
     # SentencePieceTokenizerOptionsT
@@ -201,9 +153,7 @@ class SentencePieceTokenizerOptionsT(object):
             sentencePieceModellist = []
             for i in range(len(self.sentencePieceModel)):
                 sentencePieceModellist.append(self.sentencePieceModel[i].Pack(builder))
-            SentencePieceTokenizerOptionsStartSentencePieceModelVector(
-                builder, len(self.sentencePieceModel)
-            )
+            SentencePieceTokenizerOptionsStartSentencePieceModelVector(builder, len(self.sentencePieceModel))
             for i in reversed(range(len(self.sentencePieceModel))):
                 builder.PrependUOffsetTRelative(sentencePieceModellist[i])
             sentencePieceModel = builder.EndVector()

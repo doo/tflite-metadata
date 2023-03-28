@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class SignatureDef(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class SignatureDef(object):
     def GetRootAsSignatureDef(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def SignatureDefBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # SignatureDef
     def Init(self, buf, pos):
@@ -41,7 +36,6 @@ class SignatureDef(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorMap import TensorMap
-
             obj = TensorMap()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -67,7 +61,6 @@ class SignatureDef(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorMap import TensorMap
-
             obj = TensorMap()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -99,84 +92,35 @@ class SignatureDef(object):
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
-
-def SignatureDefStart(builder):
-    builder.StartObject(5)
-
-
+def SignatureDefStart(builder): builder.StartObject(5)
 def Start(builder):
     return SignatureDefStart(builder)
-
-
-def SignatureDefAddInputs(builder, inputs):
-    builder.PrependUOffsetTRelativeSlot(
-        0, flatbuffers.number_types.UOffsetTFlags.py_type(inputs), 0
-    )
-
-
+def SignatureDefAddInputs(builder, inputs): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(inputs), 0)
 def AddInputs(builder, inputs):
     return SignatureDefAddInputs(builder, inputs)
-
-
-def SignatureDefStartInputsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SignatureDefStartInputsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartInputsVector(builder, numElems):
     return SignatureDefStartInputsVector(builder, numElems)
-
-
-def SignatureDefAddOutputs(builder, outputs):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(outputs), 0
-    )
-
-
+def SignatureDefAddOutputs(builder, outputs): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(outputs), 0)
 def AddOutputs(builder, outputs):
     return SignatureDefAddOutputs(builder, outputs)
-
-
-def SignatureDefStartOutputsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SignatureDefStartOutputsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartOutputsVector(builder, numElems):
     return SignatureDefStartOutputsVector(builder, numElems)
-
-
-def SignatureDefAddSignatureKey(builder, signatureKey):
-    builder.PrependUOffsetTRelativeSlot(
-        2, flatbuffers.number_types.UOffsetTFlags.py_type(signatureKey), 0
-    )
-
-
+def SignatureDefAddSignatureKey(builder, signatureKey): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(signatureKey), 0)
 def AddSignatureKey(builder, signatureKey):
     return SignatureDefAddSignatureKey(builder, signatureKey)
-
-
-def SignatureDefAddSubgraphIndex(builder, subgraphIndex):
-    builder.PrependUint32Slot(4, subgraphIndex, 0)
-
-
+def SignatureDefAddSubgraphIndex(builder, subgraphIndex): builder.PrependUint32Slot(4, subgraphIndex, 0)
 def AddSubgraphIndex(builder, subgraphIndex):
     return SignatureDefAddSubgraphIndex(builder, subgraphIndex)
-
-
-def SignatureDefEnd(builder):
-    return builder.EndObject()
-
-
+def SignatureDefEnd(builder): return builder.EndObject()
 def End(builder):
     return SignatureDefEnd(builder)
-
-
 import tflite.TensorMap
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class SignatureDefT(object):
 
@@ -196,7 +140,7 @@ class SignatureDefT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, signatureDef):

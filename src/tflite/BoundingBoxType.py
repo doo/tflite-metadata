@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class BoundingBoxType(object):
     UNKNOWN = 0
     BOUNDARIES = 1

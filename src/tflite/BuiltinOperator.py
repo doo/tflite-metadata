@@ -2,7 +2,6 @@
 
 # namespace: tflite
 
-
 class BuiltinOperator(object):
     ADD = 0
     AVERAGE_POOL_2D = 1
@@ -163,3 +162,4 @@ class BuiltinOperator(object):
     ATAN2 = 156
     UNSORTED_SEGMENT_MIN = 157
     SIGN = 158
+    BITCAST = 159

@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class CumsumOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class CumsumOptions(object):
     def GetRootAsCumsumOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def CumsumOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # CumsumOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class CumsumOptions(object):
             return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
         return False
 
-
-def CumsumOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def CumsumOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return CumsumOptionsStart(builder)
-
-
-def CumsumOptionsAddExclusive(builder, exclusive):
-    builder.PrependBoolSlot(0, exclusive, 0)
-
-
+def CumsumOptionsAddExclusive(builder, exclusive): builder.PrependBoolSlot(0, exclusive, 0)
 def AddExclusive(builder, exclusive):
     return CumsumOptionsAddExclusive(builder, exclusive)
-
-
-def CumsumOptionsAddReverse(builder, reverse):
-    builder.PrependBoolSlot(1, reverse, 0)
-
-
+def CumsumOptionsAddReverse(builder, reverse): builder.PrependBoolSlot(1, reverse, 0)
 def AddReverse(builder, reverse):
     return CumsumOptionsAddReverse(builder, reverse)
-
-
-def CumsumOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def CumsumOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return CumsumOptionsEnd(builder)
-
 
 class CumsumOptionsT(object):
 
@@ -96,7 +71,7 @@ class CumsumOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, cumsumOptions):

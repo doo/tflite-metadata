@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class SubGraphMetadata(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class SubGraphMetadata(object):
     def GetRootAsSubGraphMetadata(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def SubGraphMetadataBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x4D\x30\x30\x31", size_prefixed=size_prefixed)
 
     # SubGraphMetadata
     def Init(self, buf, pos):
@@ -55,7 +50,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorMetadata import TensorMetadata
-
             obj = TensorMetadata()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -81,7 +75,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorMetadata import TensorMetadata
-
             obj = TensorMetadata()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -107,7 +100,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.AssociatedFile import AssociatedFile
-
             obj = AssociatedFile()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -133,7 +125,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.ProcessUnit import ProcessUnit
-
             obj = ProcessUnit()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -159,7 +150,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.ProcessUnit import ProcessUnit
-
             obj = ProcessUnit()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -185,7 +175,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorGroup import TensorGroup
-
             obj = TensorGroup()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -211,7 +200,6 @@ class SubGraphMetadata(object):
             x += flatbuffers.number_types.UOffsetTFlags.py_type(j) * 4
             x = self._tab.Indirect(x)
             from tflite.TensorGroup import TensorGroup
-
             obj = TensorGroup()
             obj.Init(self._tab.Bytes, x)
             return obj
@@ -229,177 +217,68 @@ class SubGraphMetadata(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(20))
         return o == 0
 
-
-def SubGraphMetadataStart(builder):
-    builder.StartObject(9)
-
-
+def SubGraphMetadataStart(builder): builder.StartObject(9)
 def Start(builder):
     return SubGraphMetadataStart(builder)
-
-
-def SubGraphMetadataAddName(builder, name):
-    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
-
-
+def SubGraphMetadataAddName(builder, name): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(name), 0)
 def AddName(builder, name):
     return SubGraphMetadataAddName(builder, name)
-
-
-def SubGraphMetadataAddDescription(builder, description):
-    builder.PrependUOffsetTRelativeSlot(
-        1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0
-    )
-
-
+def SubGraphMetadataAddDescription(builder, description): builder.PrependUOffsetTRelativeSlot(1, flatbuffers.number_types.UOffsetTFlags.py_type(description), 0)
 def AddDescription(builder, description):
     return SubGraphMetadataAddDescription(builder, description)
-
-
-def SubGraphMetadataAddInputTensorMetadata(builder, inputTensorMetadata):
-    builder.PrependUOffsetTRelativeSlot(
-        2, flatbuffers.number_types.UOffsetTFlags.py_type(inputTensorMetadata), 0
-    )
-
-
+def SubGraphMetadataAddInputTensorMetadata(builder, inputTensorMetadata): builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(inputTensorMetadata), 0)
 def AddInputTensorMetadata(builder, inputTensorMetadata):
     return SubGraphMetadataAddInputTensorMetadata(builder, inputTensorMetadata)
-
-
-def SubGraphMetadataStartInputTensorMetadataVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartInputTensorMetadataVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartInputTensorMetadataVector(builder, numElems):
     return SubGraphMetadataStartInputTensorMetadataVector(builder, numElems)
-
-
-def SubGraphMetadataAddOutputTensorMetadata(builder, outputTensorMetadata):
-    builder.PrependUOffsetTRelativeSlot(
-        3, flatbuffers.number_types.UOffsetTFlags.py_type(outputTensorMetadata), 0
-    )
-
-
+def SubGraphMetadataAddOutputTensorMetadata(builder, outputTensorMetadata): builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(outputTensorMetadata), 0)
 def AddOutputTensorMetadata(builder, outputTensorMetadata):
     return SubGraphMetadataAddOutputTensorMetadata(builder, outputTensorMetadata)
-
-
-def SubGraphMetadataStartOutputTensorMetadataVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartOutputTensorMetadataVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartOutputTensorMetadataVector(builder, numElems):
     return SubGraphMetadataStartOutputTensorMetadataVector(builder, numElems)
-
-
-def SubGraphMetadataAddAssociatedFiles(builder, associatedFiles):
-    builder.PrependUOffsetTRelativeSlot(
-        4, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0
-    )
-
-
+def SubGraphMetadataAddAssociatedFiles(builder, associatedFiles): builder.PrependUOffsetTRelativeSlot(4, flatbuffers.number_types.UOffsetTFlags.py_type(associatedFiles), 0)
 def AddAssociatedFiles(builder, associatedFiles):
     return SubGraphMetadataAddAssociatedFiles(builder, associatedFiles)
-
-
-def SubGraphMetadataStartAssociatedFilesVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartAssociatedFilesVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartAssociatedFilesVector(builder, numElems):
     return SubGraphMetadataStartAssociatedFilesVector(builder, numElems)
-
-
-def SubGraphMetadataAddInputProcessUnits(builder, inputProcessUnits):
-    builder.PrependUOffsetTRelativeSlot(
-        5, flatbuffers.number_types.UOffsetTFlags.py_type(inputProcessUnits), 0
-    )
-
-
+def SubGraphMetadataAddInputProcessUnits(builder, inputProcessUnits): builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(inputProcessUnits), 0)
 def AddInputProcessUnits(builder, inputProcessUnits):
     return SubGraphMetadataAddInputProcessUnits(builder, inputProcessUnits)
-
-
-def SubGraphMetadataStartInputProcessUnitsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartInputProcessUnitsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartInputProcessUnitsVector(builder, numElems):
     return SubGraphMetadataStartInputProcessUnitsVector(builder, numElems)
-
-
-def SubGraphMetadataAddOutputProcessUnits(builder, outputProcessUnits):
-    builder.PrependUOffsetTRelativeSlot(
-        6, flatbuffers.number_types.UOffsetTFlags.py_type(outputProcessUnits), 0
-    )
-
-
+def SubGraphMetadataAddOutputProcessUnits(builder, outputProcessUnits): builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(outputProcessUnits), 0)
 def AddOutputProcessUnits(builder, outputProcessUnits):
     return SubGraphMetadataAddOutputProcessUnits(builder, outputProcessUnits)
-
-
-def SubGraphMetadataStartOutputProcessUnitsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartOutputProcessUnitsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartOutputProcessUnitsVector(builder, numElems):
     return SubGraphMetadataStartOutputProcessUnitsVector(builder, numElems)
-
-
-def SubGraphMetadataAddInputTensorGroups(builder, inputTensorGroups):
-    builder.PrependUOffsetTRelativeSlot(
-        7, flatbuffers.number_types.UOffsetTFlags.py_type(inputTensorGroups), 0
-    )
-
-
+def SubGraphMetadataAddInputTensorGroups(builder, inputTensorGroups): builder.PrependUOffsetTRelativeSlot(7, flatbuffers.number_types.UOffsetTFlags.py_type(inputTensorGroups), 0)
 def AddInputTensorGroups(builder, inputTensorGroups):
     return SubGraphMetadataAddInputTensorGroups(builder, inputTensorGroups)
-
-
-def SubGraphMetadataStartInputTensorGroupsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartInputTensorGroupsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartInputTensorGroupsVector(builder, numElems):
     return SubGraphMetadataStartInputTensorGroupsVector(builder, numElems)
-
-
-def SubGraphMetadataAddOutputTensorGroups(builder, outputTensorGroups):
-    builder.PrependUOffsetTRelativeSlot(
-        8, flatbuffers.number_types.UOffsetTFlags.py_type(outputTensorGroups), 0
-    )
-
-
+def SubGraphMetadataAddOutputTensorGroups(builder, outputTensorGroups): builder.PrependUOffsetTRelativeSlot(8, flatbuffers.number_types.UOffsetTFlags.py_type(outputTensorGroups), 0)
 def AddOutputTensorGroups(builder, outputTensorGroups):
     return SubGraphMetadataAddOutputTensorGroups(builder, outputTensorGroups)
-
-
-def SubGraphMetadataStartOutputTensorGroupsVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def SubGraphMetadataStartOutputTensorGroupsVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartOutputTensorGroupsVector(builder, numElems):
     return SubGraphMetadataStartOutputTensorGroupsVector(builder, numElems)
-
-
-def SubGraphMetadataEnd(builder):
-    return builder.EndObject()
-
-
+def SubGraphMetadataEnd(builder): return builder.EndObject()
 def End(builder):
     return SubGraphMetadataEnd(builder)
-
-
 import tflite.AssociatedFile
 import tflite.ProcessUnit
 import tflite.TensorGroup
 import tflite.TensorMetadata
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class SubGraphMetadataT(object):
 
@@ -424,7 +303,7 @@ class SubGraphMetadataT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, subGraphMetadata):
@@ -444,9 +323,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.InputTensorMetadata(i) is None:
                     self.inputTensorMetadata.append(None)
                 else:
-                    tensorMetadata_ = tflite.TensorMetadata.TensorMetadataT.InitFromObj(
-                        subGraphMetadata.InputTensorMetadata(i)
-                    )
+                    tensorMetadata_ = tflite.TensorMetadata.TensorMetadataT.InitFromObj(subGraphMetadata.InputTensorMetadata(i))
                     self.inputTensorMetadata.append(tensorMetadata_)
         if not subGraphMetadata.OutputTensorMetadataIsNone():
             self.outputTensorMetadata = []
@@ -454,9 +331,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.OutputTensorMetadata(i) is None:
                     self.outputTensorMetadata.append(None)
                 else:
-                    tensorMetadata_ = tflite.TensorMetadata.TensorMetadataT.InitFromObj(
-                        subGraphMetadata.OutputTensorMetadata(i)
-                    )
+                    tensorMetadata_ = tflite.TensorMetadata.TensorMetadataT.InitFromObj(subGraphMetadata.OutputTensorMetadata(i))
                     self.outputTensorMetadata.append(tensorMetadata_)
         if not subGraphMetadata.AssociatedFilesIsNone():
             self.associatedFiles = []
@@ -464,9 +339,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.AssociatedFiles(i) is None:
                     self.associatedFiles.append(None)
                 else:
-                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(
-                        subGraphMetadata.AssociatedFiles(i)
-                    )
+                    associatedFile_ = tflite.AssociatedFile.AssociatedFileT.InitFromObj(subGraphMetadata.AssociatedFiles(i))
                     self.associatedFiles.append(associatedFile_)
         if not subGraphMetadata.InputProcessUnitsIsNone():
             self.inputProcessUnits = []
@@ -474,9 +347,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.InputProcessUnits(i) is None:
                     self.inputProcessUnits.append(None)
                 else:
-                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(
-                        subGraphMetadata.InputProcessUnits(i)
-                    )
+                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(subGraphMetadata.InputProcessUnits(i))
                     self.inputProcessUnits.append(processUnit_)
         if not subGraphMetadata.OutputProcessUnitsIsNone():
             self.outputProcessUnits = []
@@ -484,9 +355,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.OutputProcessUnits(i) is None:
                     self.outputProcessUnits.append(None)
                 else:
-                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(
-                        subGraphMetadata.OutputProcessUnits(i)
-                    )
+                    processUnit_ = tflite.ProcessUnit.ProcessUnitT.InitFromObj(subGraphMetadata.OutputProcessUnits(i))
                     self.outputProcessUnits.append(processUnit_)
         if not subGraphMetadata.InputTensorGroupsIsNone():
             self.inputTensorGroups = []
@@ -494,9 +363,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.InputTensorGroups(i) is None:
                     self.inputTensorGroups.append(None)
                 else:
-                    tensorGroup_ = tflite.TensorGroup.TensorGroupT.InitFromObj(
-                        subGraphMetadata.InputTensorGroups(i)
-                    )
+                    tensorGroup_ = tflite.TensorGroup.TensorGroupT.InitFromObj(subGraphMetadata.InputTensorGroups(i))
                     self.inputTensorGroups.append(tensorGroup_)
         if not subGraphMetadata.OutputTensorGroupsIsNone():
             self.outputTensorGroups = []
@@ -504,9 +371,7 @@ class SubGraphMetadataT(object):
                 if subGraphMetadata.OutputTensorGroups(i) is None:
                     self.outputTensorGroups.append(None)
                 else:
-                    tensorGroup_ = tflite.TensorGroup.TensorGroupT.InitFromObj(
-                        subGraphMetadata.OutputTensorGroups(i)
-                    )
+                    tensorGroup_ = tflite.TensorGroup.TensorGroupT.InitFromObj(subGraphMetadata.OutputTensorGroups(i))
                     self.outputTensorGroups.append(tensorGroup_)
 
     # SubGraphMetadataT

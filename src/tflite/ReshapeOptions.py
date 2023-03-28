@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class ReshapeOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class ReshapeOptions(object):
     def GetRootAsReshapeOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def ReshapeOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # ReshapeOptions
     def Init(self, buf, pos):
@@ -38,10 +33,7 @@ class ReshapeOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             a = self._tab.Vector(o)
-            return self._tab.Get(
-                flatbuffers.number_types.Int32Flags,
-                a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4),
-            )
+            return self._tab.Get(flatbuffers.number_types.Int32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
         return 0
 
     # ReshapeOptions
@@ -63,46 +55,22 @@ class ReshapeOptions(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         return o == 0
 
-
-def ReshapeOptionsStart(builder):
-    builder.StartObject(1)
-
-
+def ReshapeOptionsStart(builder): builder.StartObject(1)
 def Start(builder):
     return ReshapeOptionsStart(builder)
-
-
-def ReshapeOptionsAddNewShape(builder, newShape):
-    builder.PrependUOffsetTRelativeSlot(
-        0, flatbuffers.number_types.UOffsetTFlags.py_type(newShape), 0
-    )
-
-
+def ReshapeOptionsAddNewShape(builder, newShape): builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(newShape), 0)
 def AddNewShape(builder, newShape):
     return ReshapeOptionsAddNewShape(builder, newShape)
-
-
-def ReshapeOptionsStartNewShapeVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-
+def ReshapeOptionsStartNewShapeVector(builder, numElems): return builder.StartVector(4, numElems, 4)
 def StartNewShapeVector(builder, numElems):
     return ReshapeOptionsStartNewShapeVector(builder, numElems)
-
-
-def ReshapeOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def ReshapeOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return ReshapeOptionsEnd(builder)
-
-
 try:
-    pass
+    from typing import List
 except:
     pass
-
 
 class ReshapeOptionsT(object):
 
@@ -119,7 +87,7 @@ class ReshapeOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, reshapeOptions):

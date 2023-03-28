@@ -4,12 +4,10 @@
 
 import flatbuffers
 from flatbuffers.compat import import_numpy
-
 np = import_numpy()
 
-
 class IfOptions(object):
-    __slots__ = ["_tab"]
+    __slots__ = ['_tab']
 
     @classmethod
     def GetRootAs(cls, buf, offset=0):
@@ -22,12 +20,9 @@ class IfOptions(object):
     def GetRootAsIfOptions(cls, buf, offset=0):
         """This method is deprecated. Please switch to GetRootAs."""
         return cls.GetRootAs(buf, offset)
-
     @classmethod
     def IfOptionsBufferHasIdentifier(cls, buf, offset, size_prefixed=False):
-        return flatbuffers.util.BufferHasIdentifier(
-            buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed
-        )
+        return flatbuffers.util.BufferHasIdentifier(buf, offset, b"\x54\x46\x4C\x33", size_prefixed=size_prefixed)
 
     # IfOptions
     def Init(self, buf, pos):
@@ -47,38 +42,18 @@ class IfOptions(object):
             return self._tab.Get(flatbuffers.number_types.Int32Flags, o + self._tab.Pos)
         return 0
 
-
-def IfOptionsStart(builder):
-    builder.StartObject(2)
-
-
+def IfOptionsStart(builder): builder.StartObject(2)
 def Start(builder):
     return IfOptionsStart(builder)
-
-
-def IfOptionsAddThenSubgraphIndex(builder, thenSubgraphIndex):
-    builder.PrependInt32Slot(0, thenSubgraphIndex, 0)
-
-
+def IfOptionsAddThenSubgraphIndex(builder, thenSubgraphIndex): builder.PrependInt32Slot(0, thenSubgraphIndex, 0)
 def AddThenSubgraphIndex(builder, thenSubgraphIndex):
     return IfOptionsAddThenSubgraphIndex(builder, thenSubgraphIndex)
-
-
-def IfOptionsAddElseSubgraphIndex(builder, elseSubgraphIndex):
-    builder.PrependInt32Slot(1, elseSubgraphIndex, 0)
-
-
+def IfOptionsAddElseSubgraphIndex(builder, elseSubgraphIndex): builder.PrependInt32Slot(1, elseSubgraphIndex, 0)
 def AddElseSubgraphIndex(builder, elseSubgraphIndex):
     return IfOptionsAddElseSubgraphIndex(builder, elseSubgraphIndex)
-
-
-def IfOptionsEnd(builder):
-    return builder.EndObject()
-
-
+def IfOptionsEnd(builder): return builder.EndObject()
 def End(builder):
     return IfOptionsEnd(builder)
-
 
 class IfOptionsT(object):
 
@@ -96,7 +71,7 @@ class IfOptionsT(object):
     @classmethod
     def InitFromPackedBuf(cls, buf, pos=0):
         n = flatbuffers.encode.Get(flatbuffers.packer.uoffset, buf, pos)
-        return cls.InitFromBuf(buf, pos + n)
+        return cls.InitFromBuf(buf, pos+n)
 
     @classmethod
     def InitFromObj(cls, ifOptions):
